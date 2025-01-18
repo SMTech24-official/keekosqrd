@@ -1,10 +1,10 @@
-import LoginPage from '@/components/LoginPage'
-import React from 'react'
+import LoginPage from "@/components/auth/loginpage/LoginPage";
+import React from "react";
 
 export default function page() {
   return (
     <div>
-        <LoginPage></LoginPage>
+      <LoginPage></LoginPage>
     </div>
-  )
+  );
 }
