@@ -22,7 +22,7 @@ export function NavBar() {
         <Link href="/" className="text-default text-lg hover:text-gray-600">
           Home
         </Link>
-        <Link href="/vote" className="text-default text-lg hover:text-gray-600">
+        <Link href="/voting" className="text-default text-lg hover:text-gray-600">
           Vote
         </Link>
         <Link href="/community" className="text-default text-lg hover:text-gray-600">
