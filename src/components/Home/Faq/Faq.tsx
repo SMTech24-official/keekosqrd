@@ -20,13 +20,13 @@ const Faq = () => {
   ];
 
   return (
-    <div className="container mx-auto px-4 md:px-0 pb-[120px]">
+    <div className="container mx-auto px-4 md:px-0 pb-[60px] md:pb-[120px]">
       <h1 className="text-center text-3xl font-bold mb-12">
         Do You Have Any Questions?
       </h1>
       <div className="flex flex-col md:flex-row gap-12">
         {/* Left Column */}
-        <div className="md:w-[515px]">
+        <div className="md:w-1/2">
           <h1 className="text-2xl  text-default mb-4">
             Common Inquiries About Our Service
           </h1>

@@ -10,18 +10,18 @@ import Image from "next/image";
 export default function Footer() {
   return (
     <div className="bg-[#212121] py-20">
-      <div className="container mx-auto max-w-[1200px] md:px-0 px-4 grid grid-cols-1 lg:grid-cols-5 gap-8">
+      <div className="container mx-auto  md:px-0 px-4 grid grid-cols-1 lg:grid-cols-5 gap-8">
         {/* Logo and Description */}
-        <div className="flex flex-col items-center md:items-start text-white col-span-2 w-[350px]">
+        <div className="flex flex-col items-start md:items-start text-white col-span-2 w-[350px]">
           <Image src={footerLogo} alt="Footer Logo" className="w-24 mb-4" />
-          <p className="text-center md:text-left">
+          <p className=" md:text-left text-start">
             Dive into a space designed just for you. You&apos;re looking to engage
             with like-minded individuals, plan exciting events.
           </p>
         </div>
 
         {/* Explore Links */}
-        <div className="flex flex-col text-white md:text-left text-center">
+        <div className="flex flex-col text-white md:text-left text-start">
           <h3 className="font-semibold mb-4 text-2xl">Explore</h3>
           <ul>
             <li className="mb-3">
@@ -75,7 +75,7 @@ export default function Footer() {
         </div>
 
         {/* Follow Us */}
-        <div className="flex flex-col items-center md:items-start text-white">
+        <div className="flex flex-col items-start md:items-start text-white">
           <h3 className="font-semibold mb-4 text-2xl">Follow Us</h3>
           <div className="flex space-x-4">
             <div className="bg-[#CCCCCC] w-8 h-8 rounded-md flex items-center justify-center">

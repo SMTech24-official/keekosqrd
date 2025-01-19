@@ -8,7 +8,7 @@ export function AvailableVoting() {
   const dynamicPadding = pathname === "/voting" ? "pt-[160px]" : "pb-[120px]";
   return (
     <section className={dynamicPadding}>
-      <div className="container mx-auto px-0">
+      <div className="container mx-auto md:px-0 px-4">
         <div className="text-center mb-12">
           <h2 className="text-3xl md:text-4xl font-semibold mb-4 text-default">
             Available Voting

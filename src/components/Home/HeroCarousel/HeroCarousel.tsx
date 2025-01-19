@@ -22,7 +22,7 @@ export function HeroCarousel() {
   ];
 
   return (
-    <div className="relative w-[515px] h-[515px] ">
+    <div className="relative w-[250px] h-[250px] md:w-[515px] md:h-[515px] ">
       <div className="absolute w-full h-full rounded-full right">
         <div className="relative w-full h-full">
           {slides.map((slide, index) => (
@@ -38,7 +38,7 @@ export function HeroCarousel() {
                 
                 className="scale-[1.5]"
               />
-              <div className="absolute top-9 left-4 bg-white rounded-lg px-3 py-2 shadow-lg flex items-center gap-4">
+              <div className="absolute -top-4 left-2 md:top-9 md:left-4 bg-white rounded-lg px-3 py-2 shadow-lg flex items-center gap-4">
                 <Image src={mortimg} alt="mort image"/>
                 <div>
                 <div className="text-lg font-bold">{slide.discount}%</div>

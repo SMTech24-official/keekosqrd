@@ -27,7 +27,7 @@ export function SneakerCard({
           </span>
         </div>
         
-        <div className="relative h-[260px] mb-4">
+        <div className="relative h-[290px] mb-4">
           <Image
             src={image || "/placeholder.svg"}
             alt={name}

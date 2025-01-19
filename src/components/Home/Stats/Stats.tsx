@@ -1,6 +1,6 @@
 export function Stats() {
     return (
-      <div className="flex space-x-12 items-center justify-start text-center">
+      <div className="flex space-x-12 items-center md:justify-start text-center justify-center">
         <div>
           <div className="text-[40px] font-semibold text-default">1K+</div>
           <div className="text-[#212121CC] text-[20px]">Brand</div>

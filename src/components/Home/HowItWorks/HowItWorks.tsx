@@ -1,11 +1,11 @@
 import steps from "@/constants/WorkData/WorkData"
 export function HowItWorks() {
   return (
-    <section className="md:py-[120px]">
-      <div className="container mx-auto px-0">
+    <section className="py-[80px] md:py-[120px]">
+      <div className="container mx-auto md:px-0 px-4">
         <div className="text-center mb-12">
           <h2 className="text-3xl md:text-4xl font-semibold mb-4 text-default">How It Works</h2>
-          <p className="text-gray max-w-3xl mx-auto">
+          <p className="text-gray max-w-3xl md:text-start text-justify mx-auto">
             Subscribe for $10/month and vote on your favorite sneakers. At the end of the month,
             a winner is randomly selected by the admin to receive the chosen sneaker.
           </p>
