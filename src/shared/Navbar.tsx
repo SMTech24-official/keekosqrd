@@ -8,7 +8,7 @@ import logo from "@/assets/home/nav-logo.svg";
 import Banner from "@/components/Home/Banner/Banner";
 
 export function NavBar() {
-  const [isDrawerOpen, setIsDrawerOpen] = useState(false); // State for drawer visibility
+  const [isDrawerOpen, setIsDrawerOpen] = useState(false); 
   const pathname = usePathname();
 
   const isActive = (path: string) => pathname === path;
