@@ -73,10 +73,10 @@ export function NavBar() {
 
         {/* Desktop Buttons */}
         <div className="hidden md:flex items-center gap-6">
-          <Link href={"/register"} className="bg-transparent text-default border border-gray px-4 py-2 rounded-[4px] text-lg font-medium">
+          <Link href={"/register"} className="bg-transparent text-default border border-gray px-4 py-2 rounded-[4px] text-lg font-medium z-[300]">
             Sign Up
           </Link>
-          <Link href={"/login"} className="bg-grey text-default hover:bg-gray-300 px-4 py-2 rounded-[4px] text-lg font-medium">
+          <Link href={"/login"} className="bg-grey text-default hover:bg-gray-300 px-4 py-2 rounded-[4px] text-lg font-medium z-[300]">
             Sign In
           </Link>
         </div>
