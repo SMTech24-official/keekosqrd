@@ -8,8 +8,9 @@ import logo from "@/assets/home/nav-logo.svg";
 import Banner from "@/components/Home/Banner/Banner";
 
 export function NavBar() {
-  const [isDrawerOpen, setIsDrawerOpen] = useState(false); 
+  const [isDrawerOpen, setIsDrawerOpen] = useState(false);
   const pathname = usePathname();
+  console.log(pathname);
 
   const isActive = (path: string) => pathname === path;
 
@@ -73,20 +74,30 @@ export function NavBar() {
 
         {/* Desktop Buttons */}
         <div className="hidden md:flex items-center gap-6">
-          <Link href={"/register"} className="bg-transparent text-default border border-gray px-4 py-2 rounded-[4px] text-lg font-medium z-[300]">
+          <Link
+            href={"/register"}
+            className="bg-transparent text-default border border-gray px-4 py-2 rounded-[4px] text-lg font-medium z-[300]"
+          >
             Sign Up
           </Link>
-          <Link href={"/login"} className="bg-grey text-default hover:bg-gray-300 px-4 py-2 rounded-[4px] text-lg font-medium z-[300]">
+          <Link
+            href={"/login"}
+            className="bg-grey text-default hover:bg-gray-300 px-4 py-2 rounded-[4px] text-lg font-medium z-[300]"
+          >
             Sign In
           </Link>
         </div>
 
         {/* Hamburger Icon for Mobile */}
         <div className="flex md:hidden">
-          {isDrawerOpen ? "" : <Menu
-            className="w-8 h-8 text-gray-700 cursor-pointer"
-            onClick={() => setIsDrawerOpen(true)}
-          />}
+          {isDrawerOpen ? (
+            ""
+          ) : (
+            <Menu
+              className="w-8 h-8 text-gray-700 cursor-pointer"
+              onClick={() => setIsDrawerOpen(true)}
+            />
+          )}
         </div>
       </nav>
 
@@ -98,15 +109,15 @@ export function NavBar() {
       >
         {/* Close Button */}
         <div className="flex items-center justify-between px-4 py-4">
-        <Link href="/" className="flex items-center">
-          <Image
-            src={logo}
-            alt="Sneakers Logo"
-            width={100}
-            height={100}
-            className="object-contain w-16 h-16"
-          />
-        </Link>
+          <Link href="/" className="flex items-center">
+            <Image
+              src={logo}
+              alt="Sneakers Logo"
+              width={100}
+              height={100}
+              className="object-contain w-16 h-16"
+            />
+          </Link>
           <X
             className="w-6 h-6 text-gray-700 cursor-pointer"
             onClick={() => setIsDrawerOpen(false)}
@@ -161,13 +172,13 @@ export function NavBar() {
             Contact
           </Link>
           <div className="flex flex-col gap-6">
-          <button className="bg-transparent text-default border border-gray px-4 py-2 rounded-[4px] text-lg font-medium">
-            Sign Up
-          </button>
-          <button className="bg-grey text-default hover:bg-gray-300 px-4 py-2 rounded-[4px] text-lg font-medium">
-            Sign In
-          </button>
-        </div>
+            <button className="bg-transparent text-default border border-gray px-4 py-2 rounded-[4px] text-lg font-medium">
+              Sign Up
+            </button>
+            <button className="bg-grey text-default hover:bg-gray-300 px-4 py-2 rounded-[4px] text-lg font-medium">
+              Sign In
+            </button>
+          </div>
         </div>
       </div>
 
@@ -178,8 +189,7 @@ export function NavBar() {
           onClick={() => setIsDrawerOpen(false)}
         />
       )}
-
-      <Banner />
+      {pathname !== "/faq" && <Banner />}
     </div>
   );
 }

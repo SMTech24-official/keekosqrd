@@ -1,5 +1,4 @@
 'use client'
-import sneakers from "@/constants/productData/ProductData";
 import { SneakerCard } from "./SneakerCard";
 import { usePathname } from "next/navigation";
 import { useGetProductsQuery } from "@/redux/api/productApi";
