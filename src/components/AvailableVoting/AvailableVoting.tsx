@@ -2,10 +2,23 @@
 import sneakers from "@/constants/productData/ProductData";
 import { SneakerCard } from "./SneakerCard";
 import { usePathname } from "next/navigation";
+import { useGetProductsQuery } from "@/redux/api/productApi";
+import { SneakerCardProps } from "@/types/Interfaces";
 
 export function AvailableVoting() {
   const pathname = usePathname();
   const dynamicPadding = pathname === "/voting" ? "pt-[160px]" : "pb-[120px]";
+
+  const { result, isLoading } = useGetProductsQuery({}, {
+    selectFromResult: ({ data, isLoading }) => ({
+      result: data?.data?.products?.data,
+      isLoading: isLoading
+    })
+  })
+
+  console.log(result);
+  
+
   return (
     <section className={dynamicPadding}>
       <div className="container mx-auto md:px-0 px-4">
@@ -21,9 +34,14 @@ export function AvailableVoting() {
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {sneakers.map((sneaker, index) => (
-            <SneakerCard key={index} {...sneaker} />
-          ))}
+          {
+            isLoading ?
+              "Loading"
+              :
+              result?.map((sneaker : SneakerCardProps, index : number) => (
+                <SneakerCard key={index} {...sneaker} />
+              ))
+          }
         </div>
       </div>
     </section>
