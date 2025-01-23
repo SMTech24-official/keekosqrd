@@ -45,14 +45,14 @@ export function NavBar() {
           >
             Vote
           </Link>
-          <Link
+          {/* <Link
             href="/community"
             className={`text-lg hover:text-gray-600 ${
               isActive("/community") ? "text-default font-bold" : "text-default"
             }`}
           >
             Community
-          </Link>
+          </Link> */}
           <Link
             href="/faq"
             className={`text-lg hover:text-gray-600 ${
