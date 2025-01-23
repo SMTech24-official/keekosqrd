@@ -1,8 +1,8 @@
-import baseApi from "@/redux/api/baseApi";
 import { SneakerCardProps } from "@/types/Interfaces";
 import Image from "next/image";
 
 export function SneakerCard({
+  id,
   product_image,
   daysLeft,
   product_name,
@@ -13,7 +13,6 @@ export function SneakerCard({
   // isVoted = false
 }: SneakerCardProps) {
 
-  console.log(baseApi);
 
   return (
     <div className="rounded-lg relative bg-white">

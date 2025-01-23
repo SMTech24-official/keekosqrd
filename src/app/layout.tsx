@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import ReduxProvider from "@/redux/ReduxProvider";
+import { Toaster } from "sonner";
 // import { NavBar } from "@/shared/Navbar";
 // import Footer from "@/shared/Footer";
 
@@ -32,6 +33,8 @@ export default function RootLayout({
       >
         {/* <NavBar /> */}
         <ReduxProvider>{children}</ReduxProvider>
+        <Toaster />
+
         {/* <Footer /> */}
       </body>
     </html>

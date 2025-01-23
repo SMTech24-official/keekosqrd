@@ -1,9 +1,13 @@
 "use client";
 
 import { useForm, SubmitHandler } from "react-hook-form";
+import Cookies from 'js-cookie';
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { RegisterSchema } from "@/types/RegisterSchema";
+import {  useRegisterMutation } from "@/redux/api/registerApi";
+import { toast } from "sonner";
+import { useRouter } from "next/navigation";
 
 // Define Zod schema for form validation
 
@@ -11,6 +15,9 @@ import { RegisterSchema } from "@/types/RegisterSchema";
 type RegisterFormInputs = z.infer<typeof RegisterSchema>;
 
 export default function Register() {
+  const [registerUser, { isLoading }] = useRegisterMutation();
+  const router = useRouter();
+
   const {
     register,
     handleSubmit,
@@ -19,9 +26,34 @@ export default function Register() {
     resolver: zodResolver(RegisterSchema),
   });
 
-  // Handle form submission
-  const onSubmit: SubmitHandler<RegisterFormInputs> = (data) => {
-    console.log("Form Data Submitted:", data);
+
+  interface ApiError {
+    data?: {
+      message?: string;
+    };
+  }
+
+  const onSubmit: SubmitHandler<RegisterFormInputs> = async (data) => {
+    try {
+      const response = await registerUser(data).unwrap(); // Triggers the mutation
+      Cookies.set("token", response?.data?.token, { expires: 7 }); // Assuming `token` is returned in the response
+    
+
+      if(response?.data?.token){
+      if(!isLoading){
+  
+      router.push('/payment')
+      toast.success("Registration successful!");
+      
+    }
+   }
+      
+    } catch (err: unknown) {
+      const error = err as ApiError;
+      const errorMessage = error?.data?.message || "An error occurred during registration.";
+      console.error("Registration failed:", error);
+      toast.error(errorMessage); // Show API error message in toast
+    }
   };
 
   return (
@@ -248,12 +280,18 @@ export default function Register() {
 
         {/* Submit Button */}
         <div className="mt-8">
-          <button
-            type="submit"
-            className="w-full bg-blue-500 text-white px-6 py-2 rounded-lg hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
-          >
-            Submit
-          </button>
+        <button
+  type="submit"
+  disabled={isLoading}
+  className={`w-full px-6 py-2 rounded-lg focus:outline-none ${
+    isLoading
+      ? "bg-gray-400 cursor-not-allowed"
+      : "bg-blue-500 text-white hover:bg-blue-600"
+  }`}
+>
+  {isLoading ? "Registering..." : "Submit"}
+</button>
+
         </div>
       </form>
     </div>
