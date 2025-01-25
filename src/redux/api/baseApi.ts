@@ -12,7 +12,6 @@ export const baseApi = createApi({
         headers.set("Authorization", `Bearer ${token}`);
         console.log("Token is set:", token); // Optional: Log the token
       } else {
-        console.warn("Token is not set."); // Optional: Warn if the token is missing
       }
 
       return headers;
