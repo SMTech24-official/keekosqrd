@@ -10,6 +10,7 @@ import { Label } from "@/components/ui/label";
 import { EyeIcon, EyeOffIcon } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { toast } from "sonner";
+import { useResetPassMutation } from "@/redux/api/registerApi";
 
 // Define Zod schema for password validation
 const changePasswordSchema = z
@@ -32,9 +33,7 @@ export default function ChangePassword() {
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const router = useRouter();
 
-  // Mock email and OTP for testing
-  const mockEmail = "user@example.com";
-  const mockOtp = "123456";
+ 
 
   const {
     register,
@@ -44,15 +43,25 @@ export default function ChangePassword() {
     resolver: zodResolver(changePasswordSchema),
     mode: "onSubmit",
   });
+  const [resetPas,{isLoading}]=useResetPassMutation()
+  const userEmail = localStorage.getItem("email")
+  const parsedEmail = userEmail ? JSON.parse(userEmail) as string : "";
 
   const onSubmit = async (data: ChangePasswordFormData) => {
     try {
-      console.log("Resetting password with data:", {
-        email: mockEmail,
-        otp: mockOtp,
-        password: data.newPassword,
-      });
 
+
+   const kamran=   await resetPas({
+        email: parsedEmail,
+        password: data.newPassword,
+        password_confirmation: data.confirmPassword,
+      
+
+
+      })
+   console.log(kamran)
+      
+     
       // Simulate API call
       setTimeout(() => {
         router.push("/login");
@@ -141,6 +150,7 @@ export default function ChangePassword() {
                   type="button"
                   variant="ghost"
                   size="sm"
+                  disabled={isLoading}
                   className="absolute right-0 top-0 h-full px-3 py-2 hover:bg-transparent"
                   onClick={() =>
                     setShowConfirmPassword(!showConfirmPassword)

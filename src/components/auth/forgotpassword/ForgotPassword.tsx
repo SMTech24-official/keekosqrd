@@ -9,6 +9,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useRouter } from "next/navigation";
 import { toast } from "sonner";
 import { ForgotPasswordData, forgotPasswordSchema } from "@/types/forgotPasswordSchema ";
+import { useForgotPassMutation } from "@/redux/api/registerApi";
 
 
 export default function ForgotPassword() {
@@ -22,12 +23,16 @@ export default function ForgotPassword() {
   } = useForm<ForgotPasswordData>({
     resolver: zodResolver(forgotPasswordSchema),
   });
+const [forgot]=useForgotPassMutation()
+
 
   const onSubmit = async (data: ForgotPasswordData) => {
     try {
       // Mock API call to handle the forgot password process
       console.log("Submitted Data:", data);
+      forgot(data)
       reset();
+      localStorage.setItem('email', JSON.stringify(data.email))
       router.push("/otp");
       toast.success("Enter your received OTP");
     } catch (err) {

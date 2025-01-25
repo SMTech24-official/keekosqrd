@@ -44,6 +44,33 @@ const registerApi = baseApi.injectEndpoints({
             providesTags:["User"]
 
           }),
+          forgotPass: builder.mutation({
+            query: (data) => ({
+              url: "/forgot-password",
+              method: "POST",
+              body: data,
+            }),
+            invalidatesTags:["User"]
+
+          }),
+          otp: builder.mutation({
+            query: (data) => ({
+              url: "/verify-otp",
+              method: "POST",
+              body: data,
+            }),
+            invalidatesTags:["User"]
+
+          }),
+          resetPass: builder.mutation({
+            query: (data) => ({
+              url: "/reset-password",
+              method: "POST",
+              body: data,
+            }),
+            invalidatesTags:["User"]
+
+          }),
           
           
        
@@ -51,4 +78,4 @@ const registerApi = baseApi.injectEndpoints({
 })
 
 
-export const {useRegisterMutation,useCreatePaymentIntentMutation,useSubscribtionMutation,useLoginMutation,useGetUserQuery} = registerApi
+export const {useRegisterMutation,useCreatePaymentIntentMutation,useSubscribtionMutation,useLoginMutation,useGetUserQuery,useForgotPassMutation,useOtpMutation,useResetPassMutation} = registerApi

@@ -57,7 +57,7 @@ export default function LoginPage() {
       <Card className="w-full max-w-md mx-auto">
         <CardHeader className="space-y-1 text-center">
           <CardTitle className="md:text-[34px] font-[600] text-2xl text-[#1D2939]">
-            Sign in to WSF
+            Sign in to Keekosqrd
           </CardTitle>
           <CardDescription className="md:text-[16px] text-[15px] pt-3 font-[400] text-[#475467]">
             Please Enter Your Email And Password Below!
