@@ -8,9 +8,16 @@ const productApi = baseApi.injectEndpoints({
                 method: 'POST',
             }),
             invalidatesTags:["Vote"]
+        }),
+        voteMe: builder.query({
+            query: () => ({
+                url: `/users/voting-history`,
+                method: 'GET',
+            }),
+            providesTags:["Vote"]
         })
     })
 })
 
 
-export const {useGiveVoteMutation} = productApi
+export const {useGiveVoteMutation,useVoteMeQuery} = productApi

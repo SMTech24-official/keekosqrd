@@ -75,20 +75,20 @@ export function NavBar() {
           </Link> */}
           <Link
             href="/faq"
-            className={`text-lg hover:text-gray-600 ${
+            className={`text-lg hover:text-gray-600 z-30 ${
               isActive("/faq") ? "text-default font-bold" : "text-default"
             }`}
           >
             FAQ
           </Link>
-          <Link
+          {/* <Link
             href="/contact"
             className={`text-lg hover:text-gray-600 ${
               isActive("/contact") ? "text-blue-500 font-bold" : "text-default"
             }`}
           >
             Contact
-          </Link>
+          </Link> */}
         </div>
 
         {hasSubscription ? (

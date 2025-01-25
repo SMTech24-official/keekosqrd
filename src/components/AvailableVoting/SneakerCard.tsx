@@ -1,9 +1,19 @@
 import { useGetUserQuery } from "@/redux/api/registerApi";
-import { useGiveVoteMutation } from "@/redux/api/voteApi";
-import { SneakerCardProps } from "@/types/Interfaces";
+import { useGiveVoteMutation, useVoteMeQuery } from "@/redux/api/voteApi";
+import Cookies from 'js-cookie';
 import Image from "next/image";
-import Cookies from "js-cookie";
-import { toast } from "sonner"; // Import Sonner for toast notifications
+import { toast } from "sonner";
+
+interface SneakerCardProps {
+  id: number;
+  product_image: string;
+  daysLeft: number;
+  product_name: string;
+  price: number;
+  brand_name: string;
+  model: string;
+  size: string;
+}
 
 export function SneakerCard({
   id,
@@ -19,27 +29,20 @@ export function SneakerCard({
   const { data } = useGetUserQuery(undefined);
   const userData = data?.data?.user;
   const token = Cookies.get("token");
-
+  const { data: voteMe } = useVoteMeQuery({});
 
   const hasSubscription = userData?.stripe_customer_id && token;
 
   const handleVote = async (productId: number) => {
     if (!hasSubscription) {
-
       toast.error("You need an active subscription to vote.");
       return;
     }
 
     try {
-      // Call the giveVote mutation
-      const response = await giveVote(productId).unwrap();
+      await giveVote(productId).unwrap();
       toast.success("Your vote has been submitted successfully!");
-      console.log(response.data.product.id)
-      
-
-
     } catch (error: unknown) {
-   
       const errorMessage =
         (error as { data?: { message?: string } })?.data?.message ||
         "An error occurred while submitting your vote.";
@@ -47,9 +50,11 @@ export function SneakerCard({
     }
   };
 
+  const voting = voteMe?.data?.votes[0].product?.id;
+  const isVoted = voting == id;
 
   return (
-    <div className="rounded-lg relative bg-white">
+    <div className="rounded-lg relative bg-white flex flex-col h-full">
       {/* Days Left Badge */}
       <div className="absolute right-0 top-3 z-10">
         <span className="bg-[#FF5F00] text-white px-4 py-3 rounded-md font-medium">
@@ -68,7 +73,7 @@ export function SneakerCard({
       </div>
 
       {/* Product Details */}
-      <div className="p-6">
+      <div className="flex flex-col p-6 flex-grow">
         {/* Name and Price */}
         <div className="flex justify-between items-start">
           <h3 className="text-xl font-semibold text-default">{product_name}</h3>
@@ -89,14 +94,14 @@ export function SneakerCard({
         </div>
 
         {/* Vote Button */}
-        <div>
+        <div className="mt-auto">
           <button
             onClick={() => handleVote(id)}
-            disabled={ !hasSubscription} // Disable button if already voted or no subscription
+            disabled={isVoted || !hasSubscription} // Disable button if already voted or no subscription
             className={`w-full px-6 py-3 border border-grey rounded-[4px] text-[18px] font-medium mt-8 
-             `}
+              ${isVoted ? "bg-green-400 cursor-not-allowed" : "bg-blue-500"}`}
           >
-           Vote Now
+            {isVoted ? "Vote Completed" : "Vote Now"}
           </button>
         </div>
       </div>
