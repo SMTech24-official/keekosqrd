@@ -1,24 +1,32 @@
+"use client";
+import { ChevronRight } from "lucide-react";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import React from "react";
 
-export default function Breadcrumb() {
-  return <div className="container mx-auto">
-    <ol className="flex items-center whitespace-nowrap py-4">
-  <li className="inline-flex items-center">
-    <Link className="flex items-center text-sm text-gray-500 hover:text-blue-600 focus:outline-none focus:text-blue-600 dark:text-neutral-500 dark:hover:text-blue-500 dark:focus:text-blue-500" href="/">
-      Home
-    </Link>
-    <svg className="shrink-0 size-5 text-gray-400 dark:text-neutral-600 mx-2" width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-      <path d="M6 13L10 3" stroke="currentColor" stroke-linecap="round"></path>
-    </svg>
-  </li>
-  <li className="inline-flex items-center">
-    <Link className="flex items-center text-sm text-gray-500 hover:text-blue-600 focus:outline-none focus:text-blue-600 dark:text-neutral-500 dark:hover:text-blue-500 dark:focus:text-blue-500" href="/faq">
-     FAQ
-      
-    </Link>
-  </li>
-  
-</ol>
-  </div>;
+export default function BreadCrumb() {
+  const pathname = usePathname();
+
+  // Extract the route segments to display as breadcrumb
+  const segments = pathname.split("/").filter(Boolean); // Remove empty strings
+
+  return (
+    <div className="flex items-center gap-4 py-7 container mx-auto px-4">
+      <h1 className="text-dark flex items-center gap-2">
+        <Link href="/">Home</Link>
+        {segments.map((segment, index) => (
+          <React.Fragment key={index}>
+            <ChevronRight />
+            <span
+              className={`${
+                index === segments.length - 1 ? "text-blue-600" : "text-dark"
+              } capitalize`}
+            >
+              {segment.replace(/-/g, " ")} 
+            </span>
+          </React.Fragment>
+        ))}
+      </h1>
+    </div>
+  );
 }

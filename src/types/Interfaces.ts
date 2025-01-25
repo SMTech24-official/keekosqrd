@@ -6,6 +6,10 @@ export interface SneakerCardProps {
     brand_name: string
     model: string
     size: string
-    id:any
+    id:number
+    onVoteSuccess?: (productId: number) => void;
+
+  votedProducts?: number[];
+
     // isVoted?: boolean
   }

@@ -1,20 +1,23 @@
 import baseApi from "./baseApi";
 
-const voteApi = baseApi.injectEndpoints({
+const productApi = baseApi.injectEndpoints({
     endpoints: (builder) => ({
         giveVote: builder.mutation({
-            query: (id: number) => ({
+            query: (id) => ({
                 url: `products/${id}/vote`,
                 method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: {}, // Add payload if required by the backend
             }),
-            
+            invalidatesTags:["Vote"]
+        }),
+        voteMe: builder.query({
+            query: () => ({
+                url: `/users/voting-history`,
+                method: 'GET',
+            }),
+            providesTags:["Vote"]
         })
     })
 })
 
 
-export const {useGiveVoteMutation} = voteApi
+export const {useGiveVoteMutation,useVoteMeQuery} = productApi

@@ -1,8 +1,19 @@
-import { useState } from "react";
-import { useGiveVoteMutation } from "@/redux/api/voteApi";
-import { SneakerCardProps } from "@/types/Interfaces";
+import { useGetUserQuery } from "@/redux/api/registerApi";
+import { useGiveVoteMutation, useVoteMeQuery } from "@/redux/api/voteApi";
+import Cookies from 'js-cookie';
 import Image from "next/image";
 import { toast } from "sonner";
+
+interface SneakerCardProps {
+  id: number;
+  product_image: string;
+  daysLeft: number;
+  product_name: string;
+  price: number;
+  brand_name: string;
+  model: string;
+  size: string;
+}
 
 export function SneakerCard({
   id,
@@ -14,25 +25,36 @@ export function SneakerCard({
   model,
   size,
 }: SneakerCardProps) {
-  const [giveVote, { isLoading }] = useGiveVoteMutation(); // Removed isError as it's not needed
-  const [votedIds, setVotedIds] = useState<number[]>([]);
+  const [giveVote] = useGiveVoteMutation();
+  const { data } = useGetUserQuery(undefined);
+  const userData = data?.data?.user;
+  const token = Cookies.get("token");
+  const { data: voteMe } = useVoteMeQuery({});
 
-  const handleVote = async (id: number) => {
+  const hasSubscription = userData?.stripe_customer_id && token;
+
+  const handleVote = async (productId: number) => {
+    if (!hasSubscription) {
+      toast.error("You need an active subscription to vote.");
+      return;
+    }
+
     try {
-      const response = await giveVote(id).unwrap();
-      toast.success("Vote Successful!");
-      setVotedIds((prev) => [...prev, id]); // Add this ID to the voted list
-      console.log("Vote Successful:", response);
-    } catch (error) {
-      toast.error("Vote Failed. Please try again.");
-      console.error("Vote Failed:", error);
+      await giveVote(productId).unwrap();
+      toast.success("Your vote has been submitted successfully!");
+    } catch (error: unknown) {
+      const errorMessage =
+        (error as { data?: { message?: string } })?.data?.message ||
+        "An error occurred while submitting your vote.";
+      toast.error(errorMessage);
     }
   };
 
-  const isVoted = votedIds.includes(id); // Check if this ID has already been voted
+  const voting = voteMe?.data?.votes[0].product?.id;
+  const isVoted = voting == id;
 
   return (
-    <div className="rounded-lg relative bg-white">
+    <div className="rounded-lg relative bg-white flex flex-col h-full">
       {/* Days Left Badge */}
       <div className="absolute right-0 top-3 z-10">
         <span className="bg-[#FF5F00] text-white px-4 py-3 rounded-md font-medium">
@@ -43,7 +65,7 @@ export function SneakerCard({
       {/* Product Image */}
       <div className="relative h-[290px] mb-4">
         <Image
-          src={`http://10.0.20.59:8001/storage/${product_image}`}
+          src={`${process.env.NEXT_PUBLIC_STORAGE}/${product_image}`}
           alt={"product"}
           fill
           className="object-cover h-full"
@@ -51,38 +73,35 @@ export function SneakerCard({
       </div>
 
       {/* Product Details */}
-      <div className="p-6">
+      <div className="flex flex-col p-6 flex-grow">
         {/* Name and Price */}
         <div className="flex justify-between items-start">
           <h3 className="text-xl font-semibold text-default">{product_name}</h3>
           <span className="text-orange-500 text-2xl font-bold">${price}</span>
         </div>
 
-        {/* Brand, Model, Size */}
+        {/* Brand, Model, and Size */}
         <div className="grid grid-cols-2 gap-2 text-[#090043] font-medium mt-7">
           <div>
             <span className="font-medium">Brand:</span> {brand_name}
           </div>
           <div>
-            <span className="font-medium">Model:</span> {model}
+            <span className="font-medium">Model :</span> {model}
           </div>
           <div className="mt-[20px]">
-            <span className="font-medium">Size:</span> {size}
+            <span className="font-medium">Size :</span> {size}
           </div>
         </div>
 
-        {/* Voting Button */}
-        <div>
+        {/* Vote Button */}
+        <div className="mt-auto">
           <button
             onClick={() => handleVote(id)}
-            disabled={isLoading || isVoted} // Disable button if loading or already voted
-            className={`w-full px-6 py-3 border border-grey rounded-[4px] text-[18px] font-medium text-default mt-8 ${
-              isLoading || isVoted
-                ? "opacity-50 cursor-not-allowed bg-gray-300"
-                : "hover:bg-grey"
-            }`}
+            disabled={isVoted || !hasSubscription} // Disable button if already voted or no subscription
+            className={`w-full px-6 py-3 border border-grey rounded-[4px] text-[18px] font-medium mt-8 
+              ${isVoted ? "bg-green-400 cursor-not-allowed" : "bg-blue-500"}`}
           >
-            {isVoted ? "Voted" : "Vote"}
+            {isVoted ? "Vote Completed" : "Vote Now"}
           </button>
         </div>
       </div>
