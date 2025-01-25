@@ -19,6 +19,7 @@ import { toast } from "sonner";
 import { useCreatePaymentMethodMutation } from "@/redux/api/stripeApi";
 import { setPayment } from "@/redux/allSlice/paymentSlice";
 import { useDispatch } from "react-redux";
+import { useCreatePaymentIntentMutation, useSubscribtionMutation } from "@/redux/api/registerApi";
 
 // Zod schema for form validation
 const paymentSchema = z.object({
@@ -42,7 +43,11 @@ const paymentSchema = z.object({
 
 export default function Payment() {
   const router = useRouter();
-  const [payMethod,{data}]=useCreatePaymentMethodMutation()
+  const [payMethod,{isLoading:isPyLoading}]=useCreatePaymentMethodMutation()
+    const [createPaymentIntent, { isLoading }] = useCreatePaymentIntentMutation();
+      const [subscription, { isLoading: isSubscribing }] = useSubscribtionMutation();
+    
+  
   const dispatch=useDispatch()
 
 
@@ -61,27 +66,55 @@ export default function Payment() {
 
 
   const onSubmit = async (values: z.infer<typeof paymentSchema>) => {
-    const formData = new FormData()
-    formData.append("card[number]", values.number)
-    formData.append("card[exp_month]", values.exp_month)
-    formData.append("card[exp_year]", values.exp_year)
-    formData.append("card[cvc]", values.cvc)
-    formData.append("type", values.type)
-
+    const formData = new FormData();
+    formData.append("card[number]", values.number);
+    formData.append("card[exp_month]", values.exp_month);
+    formData.append("card[exp_year]", values.exp_year);
+    formData.append("card[cvc]", values.cvc);
+    formData.append("type", values.type);
+  
     try {
-     await payMethod(formData).unwrap()
-      console.log(data?.id)
-      if (data && data?.id) {
-        dispatch(setPayment({ paymentId: data?.id }))
-
-         router.push("/complete_payment");
-      } else {
-        throw new Error("Payment ID not received")
+      // Step 1: Create payment method
+      const paymentMethodResult = await payMethod(formData).unwrap();
+  
+      if (!paymentMethodResult?.id) {
+        toast.error("Failed to create payment method.");
+        return;
       }
+  
+      const paymentMethodId = paymentMethodResult.id;
+      dispatch(setPayment({ paymentId: paymentMethodId }));
+  
+      // Step 2: Create payment intent
+      const paymentIntentResult = await createPaymentIntent({
+        payment_method: paymentMethodId,
+      }).unwrap();
+      console.log(paymentIntentResult?.data?.payment_intent_id)
+  
+  
+     
+  
+      // Step 3: Subscribe
+      const subscriptionResult = await subscription({
+        payment_method: paymentMethodId,
+        price_id: "price_1QhpRzDgYV6zJ17vbxoBnokH",
+        payment_intent_id: paymentIntentResult?.data?.payment_intent_id,
+      }).unwrap();
+      if(subscriptionResult.status){
+        router.push('/')
+      }
+      toast.success(subscriptionResult?.message)
+  
+    
     } catch (err) {
-      toast.error(`Payment failed: ${(err as Error).message || "Please try again."}`)
+      toast.error(
+        `An error occurred: ${(err as Error).message || "Please try again."}`
+      );
     }
-  }
+  };
+  
+  
+
 
 
     return (
@@ -173,7 +206,8 @@ export default function Payment() {
 
             <Button
               type="submit"
-              className="w-full bg-[#0872BA] text-white rounded-lg"
+              disabled={isPyLoading||isPyLoading||isPyLoading}
+              className={`w-full bg-[#0872BA] text-white rounded-lg ${isLoading||isPyLoading||isSubscribing?"bg-slate-50 text-[#0872BA]":'bg-[#0872BA]'}`}
             
             >
              Pay Now

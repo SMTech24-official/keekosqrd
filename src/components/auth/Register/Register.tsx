@@ -35,8 +35,8 @@ export default function Register() {
 
   const onSubmit: SubmitHandler<RegisterFormInputs> = async (data) => {
     try {
-      const response = await registerUser(data).unwrap(); // Triggers the mutation
-      Cookies.set("token", response?.data?.token, { expires: 7 }); // Assuming `token` is returned in the response
+      const response = await registerUser(data).unwrap(); 
+      Cookies.set("token", response?.data?.token, { expires: 7 }); 
     
 
       if(response?.data?.token){

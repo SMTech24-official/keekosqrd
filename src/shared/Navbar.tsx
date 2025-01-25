@@ -6,10 +6,14 @@ import { usePathname } from "next/navigation";
 import { Menu, X } from "lucide-react";
 import logo from "@/assets/home/nav-logo.svg";
 import Banner from "@/components/Home/Banner/Banner";
+import { useGetUserQuery } from "@/redux/api/registerApi";
 
 export function NavBar() {
   const [isDrawerOpen, setIsDrawerOpen] = useState(false); 
+  const [userMe]=useGetUserQuery({})
   const pathname = usePathname();
+  console.log(userMe?.data?.user)
+  const userData=userMe?.data?.user
 
   const isActive = (path: string) => pathname === path;
 

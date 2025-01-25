@@ -7,7 +7,7 @@ const stripeApi = createApi({
   baseQuery: fetchBaseQuery({
     baseUrl: 'https://api.stripe.com/v1/',
     prepareHeaders: (headers) => {
-      const apiKey = "pk_test_51QUMErDgYV6zJ17v6MyFnaLZiK7jllm3Lsdq1OmxVbWZowVAWaoOy9CDjrde2byDyiPmaJ6xudcpPkpGsH7Oo0RU00mavjYxpt"; 
+      const apiKey = process.env.NEXT_PUBLIC_STRIPE_API_KEY; 
       if (apiKey) {
         headers.set('Authorization', `Bearer ${apiKey}`);
       } else {
@@ -19,7 +19,7 @@ const stripeApi = createApi({
   }),
   endpoints: (build) => ({
     createPaymentMethod: build.mutation({
-      query: (data: any) => ({
+      query: (data) => ({
         url: 'payment_methods',
         method: 'POST',
         body: new URLSearchParams(data), // Format data as x-www-form-urlencoded

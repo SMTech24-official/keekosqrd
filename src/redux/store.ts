@@ -14,14 +14,20 @@ const persistConfig = {
   key: 'root',
   storage,
 };
+// Persist configuration for `formData`
+const payIdConfig = {
+  key: 'payId',
+  storage,
+};
 
+const persistPayid = persistReducer(payIdConfig, paymentIdreducer);
 
 const persistedReducer = persistReducer(persistConfig, adminAuth);
 
 export const store = configureStore({
   reducer: {
     auth: persistedReducer,
-    payId:paymentIdreducer,
+    payId:persistPayid,
     // Add API reducers
     [baseApi.reducerPath]: baseApi.reducer,
     [stripeApi.reducerPath]: stripeApi.reducer,
