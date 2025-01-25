@@ -19,7 +19,7 @@ export const baseApi = createApi({
     },
   }),
   endpoints: () => ({}),
-  tagTypes: ["Register"],
+  tagTypes: ["User","Vote"],
 });
 
 export default baseApi;

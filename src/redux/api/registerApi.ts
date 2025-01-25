@@ -7,7 +7,8 @@ const registerApi = baseApi.injectEndpoints({
                 url: '/register',
                 method: 'POST',
                 body:data
-            })
+            }),
+            invalidatesTags:["User"]
         }),
 
         createPaymentIntent: builder.mutation({
@@ -30,6 +31,9 @@ const registerApi = baseApi.injectEndpoints({
               method: "POST",
               body: data,
             }),
+            invalidatesTags:["User"]
+
+
           }),
           getUser: builder.query({
             query: (data) => ({
@@ -37,6 +41,8 @@ const registerApi = baseApi.injectEndpoints({
               method: "GET",
               body: data,
             }),
+            providesTags:["User"]
+
           }),
           
           

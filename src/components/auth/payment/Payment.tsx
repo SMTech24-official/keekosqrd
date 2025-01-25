@@ -4,10 +4,10 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 
-import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 
 import { useRouter } from "next/navigation";
+import logo from '@/assets/footer-logo.svg'
 
 
 
@@ -20,6 +20,7 @@ import { useCreatePaymentMethodMutation } from "@/redux/api/stripeApi";
 import { setPayment } from "@/redux/allSlice/paymentSlice";
 import { useDispatch } from "react-redux";
 import { useCreatePaymentIntentMutation, useSubscribtionMutation } from "@/redux/api/registerApi";
+import Image from "next/image";
 
 // Zod schema for form validation
 const paymentSchema = z.object({
@@ -121,6 +122,12 @@ export default function Payment() {
       <div className=" fixed inset-0  z-50 flex items-center justify-center">
         <div className="sm:max-w-[500px] p-6 bg-white rounded-lg">
           <div className="flex justify-center mb-6">
+            <Image
+            src={logo}
+            height={100}
+            width={100}
+            className="w-16 h-16"
+            alt="Keekosqrd Logo" />
            
           </div>
 
@@ -204,14 +211,15 @@ export default function Payment() {
               )}
             </div>
 
-            <Button
+            <button
               type="submit"
               disabled={isPyLoading||isPyLoading||isPyLoading}
-              className={`w-full bg-[#0872BA] text-white rounded-lg ${isLoading||isPyLoading||isSubscribing?"bg-slate-50 text-[#0872BA]":'bg-[#0872BA]'}`}
+              className={`w-full py-3 bg-[#0872BA]  text-white rounded-lg ${isLoading||isPyLoading||isSubscribing?"bg-slate-50 text-black":'bg-[#0872BA]'}`}
             
             >
-             Pay Now
-            </Button>
+              {isLoading||isPyLoading||isSubscribing?"Proccesing":"Pay Now"}
+          
+            </button>
           </form>
         </div>
       </div>

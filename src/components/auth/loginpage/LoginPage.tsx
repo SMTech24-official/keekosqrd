@@ -122,7 +122,7 @@ export default function LoginPage() {
             </div>
 
             {/* Submit Button */}
-            <Button disabled={!isLoading}
+            <Button disabled={isLoading}
               className="w-full z-50 text-white bg-gradient-to-r from-[#0061FF] to-[#003A99]"
               type="submit"
             >
