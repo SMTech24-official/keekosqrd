@@ -115,7 +115,7 @@ export function NavBar() {
             {isDropdownOpen && (
               <div className="absolute right-0 mt-2 bg-white shadow-md rounded-lg w-48 p-4 z-50">
                 <Link
-                  href="http://104.248.113.165:3003"
+                  href="http://104.248.113.165:3001"
                   className="block text-gray-700 py-2 px-4 hover:bg-gray-200 rounded-lg"
                 >
                   Dashboard
