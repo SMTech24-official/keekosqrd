@@ -214,7 +214,7 @@ export default function Payment() {
             <button
               type="submit"
               disabled={isPyLoading||isPyLoading||isPyLoading}
-              className={`w-full py-3 bg-[#0872BA]  text-white rounded-lg ${isLoading||isPyLoading||isSubscribing?"bg-slate-50 text-black":'bg-[#0872BA]'}`}
+              className={`w-full py-3 bg-[#0872BA]  text-white rounded-lg ${isLoading||isPyLoading||isSubscribing?"bg-[#0872BA] text-white":'bg-[#0872BA]'}`}
             
             >
               {isLoading||isPyLoading||isSubscribing?"Proccesing":"Pay Now"}

@@ -3,35 +3,32 @@ import React, { useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
-import {  Menu, X } from "lucide-react";
+import { Menu, X } from "lucide-react";
 import logo from "@/assets/home/nav-logo.svg";
 import Banner from "@/components/Home/Banner/Banner";
 import { useGetUserQuery } from "@/redux/api/registerApi";
 import Cookies from "js-cookie"; // Import js-cookie
-import profile from '@/assets/profile.jpg'
+import profile from "@/assets/profile.jpg";
 import { useRouter } from "next/navigation";
 
-
 export function NavBar() {
-  const [isDrawerOpen, setIsDrawerOpen] = useState(false); 
+  const [isDrawerOpen, setIsDrawerOpen] = useState(false);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 
-  const {data}=useGetUserQuery(undefined)
+  const { data } = useGetUserQuery(undefined);
   const pathname = usePathname();
-  const userData=data?.data?.user
-  const token=Cookies.get("token")
-  const router=useRouter()
+  const userData = data?.data?.user;
+  const token = Cookies.get("token");
+  const router = useRouter();
 
   const isActive = (path: string) => pathname === path;
   const hasSubscription = userData?.stripe_customer_id && token;
 
-  const handleLogout=()=>{
-    Cookies.remove("token")
-    router.push('/')
-    window.location.reload()
-    
-  }
-
+  const handleLogout = () => {
+    Cookies.remove("token");
+    router.push("/");
+    window.location.reload();
+  };
 
   return (
     <div className="container mx-auto md:px-0 px-4">
@@ -109,7 +106,9 @@ export function NavBar() {
                 height={40}
                 className="rounded-full object-cover z-50"
               />
-              <span className="text-lg font-medium z-50">{userData?.first_name+" "+userData?.last_name || "User"}</span>
+              <span className="text-lg font-medium z-50">
+                {userData?.first_name + " " + userData?.last_name || "User"}
+              </span>
             </div>
 
             {/* Dropdown */}
@@ -139,9 +138,9 @@ export function NavBar() {
         ) : token ? (
           // If only token exists, show the "Continue" button
           <div className="flex items-center gap-6">
-            <Link href="/payment"
+            <Link
+              href="/payment"
               className="bg-blue-500 text-white px-4 py-2 z-50 rounded-lg text-lg font-medium"
-           
             >
               Continue
             </Link>
@@ -163,16 +162,19 @@ export function NavBar() {
             </Link>
           </div>
         )}
- 
+
         {/* Desktop Buttons */}
-       
 
         {/* Hamburger Icon for Mobile */}
         <div className="flex md:hidden">
-          {isDrawerOpen ? "" : <Menu
-            className="w-8 h-8 text-gray-700 cursor-pointer"
-            onClick={() => setIsDrawerOpen(true)}
-          />}
+          {isDrawerOpen ? (
+            ""
+          ) : (
+            <Menu
+              className="w-8 h-8 text-gray-700 cursor-pointer"
+              onClick={() => setIsDrawerOpen(true)}
+            />
+          )}
         </div>
       </nav>
 
@@ -184,15 +186,15 @@ export function NavBar() {
       >
         {/* Close Button */}
         <div className="flex items-center justify-between px-4 py-4">
-        <Link href="/" className="flex items-center">
-          <Image
-            src={logo}
-            alt="Sneakers Logo"
-            width={100}
-            height={100}
-            className="object-contain w-16 h-16"
-          />
-        </Link>
+          <Link href="/" className="flex items-center">
+            <Image
+              src={logo}
+              alt="Sneakers Logo"
+              width={100}
+              height={100}
+              className="object-contain w-16 h-16"
+            />
+          </Link>
           <X
             className="w-6 h-6 text-gray-700 cursor-pointer"
             onClick={() => setIsDrawerOpen(false)}
@@ -246,16 +248,16 @@ export function NavBar() {
           >
             Contact
           </Link>
+          {token?"":<div className="flex flex-col gap-6">
+            <Link href="/register"className="bg-transparent text-default border border-gray px-4 py-2 rounded-[4px] text-lg font-medium">
+              Sign Up
+            </Link>
+            <Link href="/login" className="bg-grey text-default hover:bg-gray-300 px-4 py-2 rounded-[4px] text-lg font-medium">
+              Sign In
+            </Link>
+          </div>}
 
-
-          <div className="flex flex-col gap-6">
-          <button className="bg-transparent text-default border border-gray px-4 py-2 rounded-[4px] text-lg font-medium">
-            Sign Up
-          </button>
-          <button className="bg-grey text-default hover:bg-gray-300 px-4 py-2 rounded-[4px] text-lg font-medium">
-            Sign In
-          </button>
-        </div>
+          
         </div>
       </div>
 
