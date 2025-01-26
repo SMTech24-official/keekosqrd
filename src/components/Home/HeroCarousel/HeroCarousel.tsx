@@ -1,11 +1,10 @@
 "use client";
-// import cimage2 from "@/assets/products/c2.jpeg"
+import cimage2 from "@/assets/products/c55.jpg"
 import cimage from "@/assets/products/c1.png";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import Image from "next/image";
 import { useState } from "react";
 // import bimg2 from "@/assets/home/bannerImag.webp"
-import mortimg from "@/assets/home/mortgage.svg";
 
 export function HeroCarousel() {
   const [currentSlide, setCurrentSlide] = useState(0);
@@ -19,7 +18,7 @@ export function HeroCarousel() {
     //   discount: 60,
     // },
     {
-      image: cimage,
+      image: cimage2,
     },
     // Add more slides as needed
   ];
@@ -38,7 +37,7 @@ export function HeroCarousel() {
               <Image
                 src={slide.image || "/placeholder.svg"}
                 alt={`Sneaker ${index + 1}`}
-                className="rounded-full object-cover"
+                className="rounded-full object-cover w-[250px] h-[250px] md:w-[515px] md:h-[515px]"
               />
               {/* <div className="absolute -top-4 left-2 md:top-9 md:left-4 bg-white rounded-lg px-3 py-2 shadow-lg flex items-center gap-4">
                 <Image src={mortimg} alt="mort image" />

@@ -40,7 +40,7 @@ export function NavBar() {
             alt="Sneakers Logo"
             width={100}
             height={100}
-            className="object-contain w-full"
+            className="object-contain w-[100px]"
           />
         </Link>
 
@@ -62,14 +62,14 @@ export function NavBar() {
           >
             Vote
           </Link>
-          {/* <Link
+          <Link
             href="/community"
             className={`text-lg hover:text-gray-600 ${
               isActive("/community") ? "text-default font-bold" : "text-default"
             }`}
           >
             Community
-          </Link> */}
+          </Link>
           <Link
             href="/faq"
             className={`text-lg hover:text-gray-600 z-30 ${

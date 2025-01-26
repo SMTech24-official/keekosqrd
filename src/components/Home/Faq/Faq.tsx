@@ -2,16 +2,25 @@
 import { useState } from "react";
 import { ChevronDown } from "lucide-react";
 import { faqContent } from "@/constants/FaqContent";
+import { useGetUserQuery } from "@/redux/api/registerApi";
+import { useRouter } from "next/navigation";
 
 const Faq = () => {
   const [openSection, setOpenSection] = useState<string | null>(null);
+  const { data } = useGetUserQuery(undefined);
+  const userData = data?.data?.user;
+  const router = useRouter(); 
 
   const toggleSection = (question: string) => {
     setOpenSection(openSection === question ? null : question);
   };
 
+  const handleJoinNowClick = () => {
+    if (!userData) {
+      router.push("/register"); 
+    }
+  };
 
-  
   return (
     <div className="container mx-auto px-4 md:px-0 pb-[60px] md:pb-[120px]">
       <h1 className="text-center text-3xl font-bold mb-12">Frequently Asked Questions (FAQ)</h1>
@@ -23,9 +32,15 @@ const Faq = () => {
             Not is there anyone who loves or pursues or desires to obtain pain of itself, because it is pain, but occasionally circumstances occur in which toil and pain can procure him some great pleasure.
           </p>
           <div className="flex justify-center md:justify-start">
-            <button className="px-6 py-3 bg-grey text-default rounded-md hover:bg-gray-300 transition text-[18px] font-medium">
-              Join Now
-            </button>
+            {/* Render the button only if user is not logged in */}
+            {!userData && (
+              <button
+                className="px-6 py-3 bg-grey text-default rounded-md hover:bg-gray-300 transition text-[18px] font-medium"
+                onClick={handleJoinNowClick}
+              >
+                Join Now
+              </button>
+            )}
           </div>
         </div>
 

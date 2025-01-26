@@ -15,7 +15,7 @@ interface SneakerCardProps {
   size: string;
 }
 
-export function SneakerCard({
+export function UpcomingSenakerCard({
   id,
   product_image,
   daysLeft,
@@ -65,8 +65,8 @@ export function SneakerCard({
       {/* Product Image */}
       <div className="relative h-[290px] mb-4">
         <Image
-          src={`${process.env.NEXT_PUBLIC_STORAGE}/${product_image} `}
-          alt={"product"}
+          src={product_image}
+          alt="product"
           fill
           className="object-cover h-full"
         />

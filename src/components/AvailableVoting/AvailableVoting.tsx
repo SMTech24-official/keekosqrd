@@ -15,7 +15,7 @@ export function AvailableVoting() {
     })
   })
 
-  console.log(result);
+  console.log("result", result);
   
 
   return (

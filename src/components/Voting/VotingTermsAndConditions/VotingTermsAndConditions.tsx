@@ -12,7 +12,7 @@ interface Term {
     {
       title: "2. Voting Period",
       description:
-        "The voting period will begin on the 1st day of each month at 12:00 AM (local time) and will close on the last day of the month at 11:59 PM (local time).",
+        "follow our instagram to get notified on when sneakers are open to vote",
     },
     {
       title: "3. Voting Process",
