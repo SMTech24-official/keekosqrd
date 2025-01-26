@@ -1,4 +1,4 @@
-import footerLogo from "@/assets/footer-logo.svg";
+import footerLogo from "@/assets/home/c-logo.jpeg";
 import {
   FacebookIcon,
   YoutubeIcon,

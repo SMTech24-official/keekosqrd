@@ -4,7 +4,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { Menu, X } from "lucide-react";
-import logo from "@/assets/home/nav-logo.svg";
+import logo from "@/assets/home/c-logo.jpeg";
 import Banner from "@/components/Home/Banner/Banner";
 
 export function NavBar() {
@@ -23,7 +23,7 @@ export function NavBar() {
             alt="Sneakers Logo"
             width={100}
             height={100}
-            className="object-contain"
+            className="object-contain w-full"
           />
         </Link>
 

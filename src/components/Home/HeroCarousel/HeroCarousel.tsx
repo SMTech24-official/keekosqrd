@@ -1,22 +1,25 @@
 "use client";
-import { useState } from "react";
-import Image from "next/image";
+// import cimage2 from "@/assets/products/c2.jpeg"
+import cimage from "@/assets/products/c1.png";
 import { ChevronLeft, ChevronRight } from "lucide-react";
-import bimg1 from "@/assets/home/banner-img.svg";
+import Image from "next/image";
+import { useState } from "react";
 // import bimg2 from "@/assets/home/bannerImag.webp"
-import mortimg from "@/assets/home/mortgage.svg"
+import mortimg from "@/assets/home/mortgage.svg";
 
 export function HeroCarousel() {
   const [currentSlide, setCurrentSlide] = useState(0);
 
   const slides = [
     {
-      image: bimg1,
-      discount: 50,
+      image: cimage,
     },
+    // {
+    //   image: bimg2,
+    //   discount: 60,
+    // },
     {
-      image: bimg1,
-      discount: 60,
+      image: cimage,
     },
     // Add more slides as needed
   ];
@@ -35,16 +38,15 @@ export function HeroCarousel() {
               <Image
                 src={slide.image || "/placeholder.svg"}
                 alt={`Sneaker ${index + 1}`}
-                
-                className="scale-[1.5]"
+                className="rounded-full object-cover"
               />
-              <div className="absolute -top-4 left-2 md:top-9 md:left-4 bg-white rounded-lg px-3 py-2 shadow-lg flex items-center gap-4">
-                <Image src={mortimg} alt="mort image"/>
+              {/* <div className="absolute -top-4 left-2 md:top-9 md:left-4 bg-white rounded-lg px-3 py-2 shadow-lg flex items-center gap-4">
+                <Image src={mortimg} alt="mort image" />
                 <div>
-                <div className="text-lg font-bold">{slide.discount}%</div>
-                <div className="text-sm text-gray-600">Discount</div>
+                  <div className="text-lg font-bold">{slide.discount}%</div>
+                  <div className="text-sm text-gray-600">Discount</div>
                 </div>
-              </div>
+              </div> */}
             </div>
           ))}
         </div>
