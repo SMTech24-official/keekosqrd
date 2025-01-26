@@ -1,23 +1,36 @@
 import { configureStore } from '@reduxjs/toolkit';
 import { persistStore, persistReducer } from 'redux-persist';
 import storage from 'redux-persist/lib/storage';
+import adminAuth from './ReduxFunction';
 import baseApi from './api/baseApi';
-import authReducer from '@/redux/ReduxFunction';
+import stripeApi from './api/stripeApi';
+import paymentIdreducer from '@/redux/allSlice/paymentSlice'
 
 
+
+
+// Persist configuration for `formData`
 const persistConfig = {
   key: 'root',
   storage,
 };
-const persistedReducer = persistReducer(persistConfig, authReducer);
+// Persist configuration for `formData`
+const payIdConfig = {
+  key: 'payId',
+  storage,
+};
 
+const persistPayid = persistReducer(payIdConfig, paymentIdreducer);
 
-
+const persistedReducer = persistReducer(persistConfig, adminAuth);
 
 export const store = configureStore({
   reducer: {
-    Auth: persistedReducer,
+    auth: persistedReducer,
+    payId:persistPayid,
+    // Add API reducers
     [baseApi.reducerPath]: baseApi.reducer,
+    [stripeApi.reducerPath]: stripeApi.reducer,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({
@@ -26,7 +39,7 @@ export const store = configureStore({
         ignoredPaths: ['Auth.somePathWithNonSerializableValues'],
       },
     })
-    .concat(baseApi.middleware), // Concatenate all middleware
+    .concat(baseApi.middleware, stripeApi.middleware), // Concatenate all middleware
 });
 
 export const persistor = persistStore(store);

@@ -1,8 +1,14 @@
 import React from 'react'
 import { HeroCarousel } from '../HeroCarousel/HeroCarousel'
 import { Stats } from '../Stats/Stats'
+import { usePathname } from 'next/navigation'
 
 export default function Banner() {
+  const path=usePathname()
+  if(path=='/faq'|| path=="/contact"){
+    return null
+  }
+
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center pt-[35px] md:pt-[62px]">
     <div className="space-y-6 text-justify md:text-start">

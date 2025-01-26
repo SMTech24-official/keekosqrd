@@ -10,6 +10,7 @@ import {
 } from "@/components/ui/input-otp";
 import { useRouter } from "next/navigation";
 import { toast } from "sonner";
+import { useOtpMutation } from "@/redux/api/registerApi";
 
 // Validation schema for OTP
 const otpSchema = z.object({
@@ -32,13 +33,23 @@ export default function OTPVerification() {
   } = useForm<OTPFormData>({
     resolver: zodResolver(otpSchema),
   });
+  const [verifyOtp]=useOtpMutation()
+  const userEmail = localStorage.getItem("email")
+  const parsedEmail = userEmail ? JSON.parse(userEmail) as string : "";
+
+
 
   const onSubmit = async (data: OTPFormData) => {
     try {
       const otp = data.otp; // Keep OTP as a string
+    
 
       // Mock API call
       console.log("Verifying OTP:", otp);
+      verifyOtp({
+        email: parsedEmail || '',
+        otp: otp
+      })
       // Simulate success response
       setTimeout(() => {
         reset();
