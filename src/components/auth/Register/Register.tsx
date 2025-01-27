@@ -1,11 +1,11 @@
 "use client";
 
 import { useForm, SubmitHandler } from "react-hook-form";
-import Cookies from 'js-cookie';
+import Cookies from "js-cookie";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { RegisterSchema } from "@/types/RegisterSchema";
-import {  useRegisterMutation } from "@/redux/api/registerApi";
+import { useRegisterMutation } from "@/redux/api/registerApi";
 import { toast } from "sonner";
 import { useRouter } from "next/navigation";
 
@@ -26,7 +26,6 @@ export default function Register() {
     resolver: zodResolver(RegisterSchema),
   });
 
-
   interface ApiError {
     data?: {
       message?: string;
@@ -35,22 +34,19 @@ export default function Register() {
 
   const onSubmit: SubmitHandler<RegisterFormInputs> = async (data) => {
     try {
-      const response = await registerUser(data).unwrap(); 
-      Cookies.set("token", response?.data?.token, { expires: 7 }); 
-    
+      const response = await registerUser(data).unwrap();
+      Cookies.set("token", response?.data?.token, { expires: 7 });
 
-      if(response?.data?.token){
-      if(!isLoading){
-  
-      router.push('/payment')
-      toast.success("Registration successful!");
-      
-    }
-   }
-      
+      if (response?.data?.token) {
+        if (!isLoading) {
+          router.push("/payment");
+          toast.success("Registration successful!");
+        }
+      }
     } catch (err: unknown) {
       const error = err as ApiError;
-      const errorMessage = error?.data?.message || "An error occurred during registration.";
+      const errorMessage =
+        error?.data?.message || "An error occurred during registration.";
       console.error("Registration failed:", error);
       toast.error(errorMessage); // Show API error message in toast
     }
@@ -280,18 +276,17 @@ export default function Register() {
 
         {/* Submit Button */}
         <div className="mt-8">
-        <button
-  type="submit"
-  disabled={isLoading}
-  className={`w-full px-6 py-2 rounded-lg focus:outline-none ${
-    isLoading
-      ? "bg-gray-400 cursor-not-allowed"
-      : "bg-blue-500 text-white hover:bg-blue-600"
-  }`}
->
-  {isLoading ? "Registering..." : "Submit"}
-</button>
-
+          <button
+            type="submit"
+            disabled={isLoading}
+            className={`w-full px-6 py-2 rounded-lg focus:outline-none ${
+              isLoading
+                ? "bg-gray-400 cursor-not-allowed"
+                : "bg-grey text-default"
+            }`}
+          >
+            {isLoading ? "Registering..." : "Submit"}
+          </button>
         </div>
       </form>
     </div>

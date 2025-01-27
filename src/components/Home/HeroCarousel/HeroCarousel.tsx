@@ -1,5 +1,5 @@
 "use client";
-import cimage2 from "@/assets/products/c55.jpg"
+import cimage2 from "@/assets/products/c2.jpg";
 import cimage from "@/assets/products/c1.png";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import Image from "next/image";

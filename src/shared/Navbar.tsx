@@ -4,7 +4,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { Menu, X } from "lucide-react";
-import logo from "@/assets/home/c-logo.jpeg";
+import logo from "@/assets/home/kkk-logo.png";
 import Banner from "@/components/Home/Banner/Banner";
 import { useGetUserQuery } from "@/redux/api/registerApi";
 import Cookies from "js-cookie"; // Import js-cookie
@@ -40,7 +40,7 @@ export function NavBar() {
             alt="Sneakers Logo"
             width={100}
             height={100}
-            className="object-contain w-[100px]"
+            className="object-contain w-[120px]"
           />
         </Link>
 

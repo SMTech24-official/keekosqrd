@@ -21,6 +21,8 @@ import { Eye, EyeOff } from "lucide-react";
 import { loginSchema, LoginSchemaType } from "@/types/loginschema";
 import { useLoginMutation } from "@/redux/api/registerApi";
 import { toast } from "sonner";
+import Image from "next/image";
+import logo from "@/assets/home/kkk-logo.png"
 
 export default function LoginPage() {
   const [showPassword, setShowPassword] = React.useState(false);
@@ -56,9 +58,10 @@ export default function LoginPage() {
     <div className="flex justify-center items-center h-screen">
       <Card className="w-full max-w-md mx-auto">
         <CardHeader className="space-y-1 text-center">
-          <CardTitle className="md:text-[34px] font-[600] text-2xl text-[#1D2939]">
-            Sign in to Keekosqrd
+          <CardTitle className="md:text-[34px] font-[600] text-2xl text-[#1D2939] mb-5">
+            Sign in
           </CardTitle>
+          <Image className="w-[100px] mx-auto object-contain" src={logo} alt="logo"/>
           <CardDescription className="md:text-[16px] text-[15px] pt-3 font-[400] text-[#475467]">
             Please Enter Your Email And Password Below!
           </CardDescription>
@@ -123,7 +126,7 @@ export default function LoginPage() {
 
             {/* Submit Button */}
             <Button disabled={isLoading}
-              className="w-full z-50 text-white bg-gradient-to-r from-[#0061FF] to-[#003A99]"
+              className="w-full z-50 bg-grey text-default"
               type="submit"
             >
               Sign In

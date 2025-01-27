@@ -9,7 +9,7 @@ const Faq = () => {
   const [openSection, setOpenSection] = useState<string | null>(null);
   const { data } = useGetUserQuery(undefined);
   const userData = data?.data?.user;
-  const router = useRouter(); 
+  const router = useRouter();
 
   const toggleSection = (question: string) => {
     setOpenSection(openSection === question ? null : question);
@@ -17,19 +17,22 @@ const Faq = () => {
 
   const handleJoinNowClick = () => {
     if (!userData) {
-      router.push("/register"); 
+      router.push("/register");
     }
   };
 
   return (
     <div className="container mx-auto px-4 md:px-0 pb-[60px] md:pb-[120px]">
-      <h1 className="text-center text-3xl font-bold mb-12">Frequently Asked Questions (FAQ)</h1>
+      <h1 className="text-center text-3xl font-bold mb-12">
+        Frequently Asked Questions (FAQ)
+      </h1>
       <div className="flex flex-col md:flex-row gap-12">
         {/* Left Column */}
         <div className="md:w-1/2">
-          <h1 className="text-2xl text-default mb-4">General Questions</h1>
           <p className="text-gray-600 mb-6">
-            Not is there anyone who loves or pursues or desires to obtain pain of itself, because it is pain, but occasionally circumstances occur in which toil and pain can procure him some great pleasure.
+            Not is there anyone who loves or pursues or desires to obtain pain
+            of itself, because it is pain, but occasionally circumstances occur
+            in which toil and pain can procure him some great pleasure.
           </p>
           <div className="flex justify-center md:justify-start">
             {/* Render the button only if user is not logged in */}
@@ -56,13 +59,13 @@ const Faq = () => {
                   {section.question}
                 </span>
                 <ChevronDown
-                  className={`w-5 h-5 transform transition-transform ${openSection === section.question ? "rotate-180" : "rotate-0"}`}
+                  className={`w-5 h-5 transform transition-transform ${
+                    openSection === section.question ? "rotate-180" : "rotate-0"
+                  }`}
                 />
               </button>
               {openSection === section.question && (
-                <div className="pb-4 text-gray-600">
-                  {section.answer}
-                </div>
+                <div className="pb-4 text-gray-600">{section.answer}</div>
               )}
             </div>
           ))}

@@ -1,11 +1,8 @@
 import footerLogo from "@/assets/home/c-logo.jpeg";
-import {
-  FacebookIcon,
-  YoutubeIcon,
-  TwitterIcon,
-  LinkedinIcon,
-} from "lucide-react";
+import { Instagram } from "lucide-react";
 import Image from "next/image";
+import Link from "next/link";
+import { FaTiktok } from "react-icons/fa";
 
 export default function Footer() {
   return (
@@ -14,10 +11,10 @@ export default function Footer() {
         {/* Logo and Description */}
         <div className="flex flex-col items-start md:items-start text-white col-span-2 w-[350px]">
           <Image src={footerLogo} alt="Footer Logo" className="w-24 mb-4" />
-          <p className=" md:text-left text-start">
-            Dive into a space designed just for you. You&apos;re looking to engage
-            with like-minded individuals, plan exciting events.
-          </p>
+          {/* <p className=" md:text-left text-start">
+            Dive into a space designed just for you. You&apos;re looking to
+            engage with like-minded individuals, plan exciting events.
+          </p> */}
         </div>
 
         {/* Explore Links */}
@@ -25,25 +22,16 @@ export default function Footer() {
           <h3 className="font-semibold mb-4 text-2xl">Explore</h3>
           <ul>
             <li className="mb-3">
-              <a href="/faq" className="hover:underline text-grey">
+              <Link href="/faq" className="hover:underline text-grey">
                 FAQ
-              </a>
+              </Link>
             </li>
             <li className="mb-3">
-              <a href="/terms" className="hover:underline text-grey">
+              <Link href="/voting" className="hover:underline text-grey">
                 Terms & Conditions
-              </a>
+              </Link>
             </li>
-            <li className="mb-3">
-              <a href="/about" className="hover:underline text-grey">
-                About Us
-              </a>
-            </li>
-            <li className="mb-3">
-              <a href="/contact" className="hover:underline text-grey">
-                Contact Us
-              </a>
-            </li>
+           
           </ul>
         </div>
 
@@ -52,23 +40,21 @@ export default function Footer() {
           <h3 className="font-semibold mb-4 text-2xl">Links</h3>
           <ul>
             <li className="mb-3">
-              <a href="https://facebook.com" className="hover:underline text-grey">
-                facebook.com
+              <a
+                href="https://www.instagram.com/ksquaredsourced"
+                target="_blank"
+                className="hover:underline text-grey"
+              >
+                instagram.com
               </a>
             </li>
             <li className="mb-3">
-              <a href="https://youtube.com" className="hover:underline text-grey">
-                youtube.com
-              </a>
-            </li>
-            <li className="mb-3">
-              <a href="https://skypee.com" className="hover:underline text-grey">
-                skypee.com
-              </a>
-            </li>
-            <li className="mb-3">
-              <a href="https://linkedin.com" className="hover:underline text-grey">
-                linkedin.com
+              <a
+                href="https://www.tiktok.com/@ksquaredsourced"
+                target="_blank"
+                className="hover:underline text-grey"
+              >
+                tiktok.com
               </a>
             </li>
           </ul>
@@ -78,18 +64,20 @@ export default function Footer() {
         <div className="flex flex-col items-start md:items-start text-white">
           <h3 className="font-semibold mb-4 text-2xl">Follow Us</h3>
           <div className="flex space-x-4">
-            <div className="bg-[#CCCCCC] w-8 h-8 rounded-md flex items-center justify-center">
-              <FacebookIcon className="text-default" size={24} />
-            </div>
-            <div className="bg-[#CCCCCC] w-8 h-8 rounded-md flex items-center justify-center">
-              <YoutubeIcon className="text-default" size={24} />
-            </div>
-            <div className="bg-[#CCCCCC] w-8 h-8 rounded-md flex items-center justify-center">
-              <TwitterIcon className="text-default" size={24} />
-            </div>
-            <div className="bg-[#CCCCCC] w-8 h-8 rounded-md flex items-center justify-center">
-              <LinkedinIcon className="text-default" size={24} />
-            </div>
+            <a
+              href="https://www.instagram.com/ksquaredsourced"
+              target="_blank"
+              className="bg-[#CCCCCC] w-8 h-8 rounded-md flex items-center justify-center"
+            >
+              <Instagram className="text-default" size={24} />
+            </a>
+            <a
+              href="https://www.tiktok.com/@ksquaredsourced"
+              target="_blank"
+              className="bg-[#CCCCCC] w-8 h-8 rounded-md flex items-center justify-center"
+            >
+              <FaTiktok className="text-default" size={24} />
+            </a>
           </div>
         </div>
       </div>

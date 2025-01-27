@@ -7,7 +7,7 @@ export default function Banner() {
   const path = usePathname();
   const { data } = useGetUserQuery(undefined);
   const userData = data?.data?.user;
-  const router = useRouter(); // Used to navigate to the register page
+  const router = useRouter(); 
 
   if (path == "/faq" || path == "/contact") {
     return null;
@@ -15,7 +15,7 @@ export default function Banner() {
 
   const handleSubscribeClick = () => {
     if (!userData) {
-      router.push("/register"); // Redirect to the register page if the user is not logged in
+      router.push("/register"); 
     }
   };
 
@@ -23,7 +23,7 @@ export default function Banner() {
     <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center pt-[35px] md:pt-[62px]">
       <div className="space-y-6 text-justify md:text-start">
         <h1 className="text-[30px] md:text-[40px] lg:text-[53px] font-bold leading-tight text-default">
-          Win Your Favourite Sneakers
+          Win Your Favourite Sneakers only £10 a month
         </h1>
         <p className="text-gray text-base md:text-lg">
           Exclusive trainers for less than retail! Join the community

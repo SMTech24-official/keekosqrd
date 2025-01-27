@@ -7,7 +7,7 @@ import { z } from "zod";
 import { Input } from "@/components/ui/input";
 
 import { useRouter } from "next/navigation";
-import logo from '@/assets/footer-logo.svg'
+import logo from '@/assets/home/kkk-logo.png'
 
 
 
@@ -126,7 +126,7 @@ export default function Payment() {
             src={logo}
             height={100}
             width={100}
-            className="w-16 h-16"
+            className="w-[120px]"
             alt="Keekosqrd Logo" />
            
           </div>
