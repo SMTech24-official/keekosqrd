@@ -119,7 +119,7 @@ export default function Payment() {
 
 
     return (
-      <div className=" fixed inset-0  z-50 flex items-center justify-center">
+      <div className=" fixed inset-0  z-50 flex items-center justify-center px-5">
         <div className="sm:max-w-[500px] p-6 bg-white rounded-lg">
           <div className="flex justify-center mb-6">
             <Image

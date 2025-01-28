@@ -140,7 +140,7 @@ export function NavBar() {
           <div className="flex items-center gap-6">
             <Link
               href="/payment"
-              className="bg-blue-500 text-white px-4 py-2 z-50 rounded-lg text-lg font-medium"
+              className="bg-grey text-default px-4 py-2 z-50 rounded-lg text-lg font-medium"
             >
               Continue
             </Link>
@@ -180,7 +180,7 @@ export function NavBar() {
 
       {/* Drawer for Mobile */}
       <div
-        className={`fixed top-0 left-0 h-full w-64 bg-white shadow-lg transform transition-transform duration-300 z-[100]  ${
+        className={`fixed top-0 left-0 h-full w-full bg-white shadow-lg transform transition-transform duration-300 z-[100]  ${
           isDrawerOpen ? "translate-x-0" : "-translate-x-full"
         }`}
       >

@@ -24,7 +24,7 @@ export function HeroCarousel() {
   ];
 
   return (
-    <div className="relative w-[250px] h-[250px] md:w-[515px] md:h-[515px] ">
+    <div className="relative w-[250px] h-[250px] md:w-[300] md:h-[300px] lg:w-[515px] lg:h-[515px] ">
       <div className="absolute w-full h-full rounded-full right">
         <div className="relative w-full h-full">
           {slides.map((slide, index) => (
@@ -37,7 +37,7 @@ export function HeroCarousel() {
               <Image
                 src={slide.image || "/placeholder.svg"}
                 alt={`Sneaker ${index + 1}`}
-                className="rounded-full object-cover w-[250px] h-[250px] md:w-[515px] md:h-[515px]"
+                className="rounded-full object-cover w-[250px] h-[250px] md:w-[300px] md:h-[300px] lg:w-[515px] lg:h-[515px]"
               />
               {/* <div className="absolute -top-4 left-2 md:top-9 md:left-4 bg-white rounded-lg px-3 py-2 shadow-lg flex items-center gap-4">
                 <Image src={mortimg} alt="mort image" />

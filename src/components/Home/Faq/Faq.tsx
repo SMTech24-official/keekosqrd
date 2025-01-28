@@ -26,10 +26,10 @@ const Faq = () => {
       <h1 className="text-center text-3xl font-bold mb-12">
         Frequently Asked Questions (FAQ)
       </h1>
-      <div className="flex flex-col justify-center">
+      <div className="flex flex-col lg:flex-row justify-center gap-5">
         {/* Left Column */}
-        <div className="md:w-1/2">
-          <p className="text-gray-600 mb-6">
+        <div className="md:w-[45%]">
+          <p className="text-gray-600 mb-6 text-justify">
             Not is there anyone who loves or pursues or desires to obtain pain
             of itself, because it is pain, but occasionally circumstances occur
             in which toil and pain can procure him some great pleasure.
@@ -38,7 +38,7 @@ const Faq = () => {
             
             {!userData && (
               <button
-                className="px-6 py-3 bg-grey text-default rounded-md hover:bg-gray-300 transition text-[18px] font-medium"
+                className="px-6 py-3 bg-grey text-default rounded-md hover:bg-gray-300 transition text-[18px] font-medium my-3"
                 onClick={handleJoinNowClick}
               >
                 Join Now
