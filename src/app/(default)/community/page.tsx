@@ -1,12 +1,11 @@
-import { PhotoGallery } from '@/components/Community/PhotoGallery/PhotoGallery'
-import { UpcomingVoting } from '@/components/Community/UpcomingVoting/UpcomingVoting'
-import React from 'react'
+import CommunityBanner from "@/components/Community/CommunityBanner/CommunityBanner";
+import { PhotoGallery } from "@/components/Community/PhotoGallery/PhotoGallery";
 
 export default function page() {
   return (
     <div>
-       <PhotoGallery/>
-       <UpcomingVoting/>
+      <CommunityBanner />
+      <PhotoGallery />
     </div>
-  )
+  );
 }

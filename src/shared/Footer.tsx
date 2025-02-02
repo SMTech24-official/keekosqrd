@@ -2,12 +2,12 @@ import footerLogo from "@/assets/home/kkk-logo.png";
 import { Instagram } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
-import { FaTiktok } from "react-icons/fa";
+import { FaFacebookF, FaTiktok } from "react-icons/fa";
 
 export default function Footer() {
   return (
     <div className="bg-grey py-20">
-      <div className="container mx-auto  md:px-0 px-4 grid grid-cols-1 lg:grid-cols-5 gap-8">
+      <div className="container mx-auto   px-4 grid grid-cols-1 lg:grid-cols-5 gap-8">
         {/* Logo and Description */}
         <div className="flex flex-col items-start md:items-start text-default col-span-2 w-[350px]">
           <Image src={footerLogo} alt="Footer Logo" className="w-[120px] mb-4" />
@@ -77,6 +77,13 @@ export default function Footer() {
               className="bg-white w-8 h-8 rounded-md flex items-center justify-center"
             >
               <FaTiktok className="text-default" size={24} />
+            </a>
+            <a
+              href="https://www.facebook.com/people/Ksquared-sourced-city/61572353114820"
+              target="_blank"
+              className="bg-white w-8 h-8 rounded-md flex items-center justify-center"
+            >
+             <FaFacebookF className="text-default" size={24} />
             </a>
           </div>
         </div>

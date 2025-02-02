@@ -31,7 +31,7 @@ export function NavBar() {
   };
 
   return (
-    <div className="container mx-auto md:px-0 px-4">
+    <div className="container mx-auto  px-4">
       <nav className="py-4 flex items-center justify-between">
         {/* Logo */}
         <Link href="/" className="flex items-center">

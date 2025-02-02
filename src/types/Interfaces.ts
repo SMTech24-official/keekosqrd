@@ -13,3 +13,14 @@ export interface SneakerCardProps {
 
     // isVoted?: boolean
   }
+
+  // interface SneakerCardProps {
+  //   id: number;
+  //   product_image: string;
+  //   daysLeft: number;
+  //   product_name: string;
+  //   price: number;
+  //   brand_name: string;
+  //   model: string;
+  //   size: string;
+  // }

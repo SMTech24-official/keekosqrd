@@ -9,7 +9,7 @@ export default function Banner() {
   const userData = data?.data?.user;
   const router = useRouter(); 
 
-  if (path == "/faq" || path == "/contact") {
+  if (path == "/faq" || path == "/contact" || path == "/community") {
     return null;
   }
 

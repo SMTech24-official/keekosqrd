@@ -1,29 +1,17 @@
 import { useGetUserQuery } from "@/redux/api/registerApi";
 import { useGiveVoteMutation, useVoteMeQuery } from "@/redux/api/voteApi";
+import { SneakerCardProps } from "@/types/Interfaces";
 import Cookies from "js-cookie";
 import Image from "next/image";
 import { toast } from "sonner";
-
-interface SneakerCardProps {
-  id: number;
-  product_image: string;
-  daysLeft: number;
-  product_name: string;
-  price: number;
-  brand_name: string;
-  model: string;
-  size: string;
-}
 
 export function SneakerCard({
   id,
   product_image,
   daysLeft,
   product_name,
-  price,
   brand_name,
   model,
-  size,
 }: SneakerCardProps) {
   const [giveVote] = useGiveVoteMutation();
   const { data } = useGetUserQuery(undefined);
@@ -77,7 +65,6 @@ export function SneakerCard({
         {/* Name and Price */}
         <div className="flex justify-between items-start">
           <h3 className="text-xl font-semibold text-default">{product_name}</h3>
-          <span className="text-orange-500 text-2xl font-bold">${price}</span>
         </div>
 
         {/* Brand, Model, and Size */}
@@ -87,9 +74,6 @@ export function SneakerCard({
           </div>
           <div>
             <span className="font-medium">Model :</span> {model}
-          </div>
-          <div className="mt-[20px]">
-            <span className="font-medium">Size :</span> {size}
           </div>
         </div>
 

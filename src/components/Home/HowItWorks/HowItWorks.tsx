@@ -2,7 +2,7 @@ import steps from "@/constants/WorkData/WorkData";
 export function HowItWorks() {
   return (
     <section className="py-[80px] md:py-[120px]">
-      <div className="container mx-auto md:px-0 px-4">
+      <div className="container mx-auto px-4">
         <div className="text-center mb-12">
           <h2 className="text-3xl md:text-4xl font-semibold mb-4 text-default">
             How It Works
