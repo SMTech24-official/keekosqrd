@@ -13,10 +13,9 @@ export function AvailableVoting() {
       result: data?.data?.products?.data,
       isLoading: isLoading
     })
-  })
+  });
 
-  console.log("result", result);
-  
+  const displayedResults = pathname === "/voting" ? result : result?.slice(0, 3);
 
   return (
     <section className={dynamicPadding}>
@@ -34,12 +33,15 @@ export function AvailableVoting() {
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {
-            isLoading ?
+            isLoading ? (
               "Loading"
-              :
-              result?.map((sneaker : SneakerCardProps, index : number) => (
+            ) : displayedResults?.length === 0 ? (
+              <p className="text-center text-red-500 col-span-full mt-10 font-semibold">Not voting product available!</p>
+            ) : (
+              displayedResults?.map((sneaker : SneakerCardProps, index : number) => (
                 <SneakerCard key={index} {...sneaker} />
               ))
+            )
           }
         </div>
       </div>

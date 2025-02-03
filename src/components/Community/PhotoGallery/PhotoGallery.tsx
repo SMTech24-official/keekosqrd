@@ -1,72 +1,78 @@
 "use client";
 
-import { useState, useEffect } from "react";
-import Image from "next/image";
+import { useGetAllCommunityQuery } from "@/redux/api/productApi";
 import { ChevronLeft, ChevronRight } from "lucide-react";
-import ph1 from "@/assets/ph1.svg";
-import ph2 from "@/assets/ph2.svg";
-import ph3 from "@/assets/ph3.svg";
+import Image from "next/image";
+import { useEffect, useState } from "react";
+import ph1 from "@/assets/ph1.svg"
 
 interface GalleryItem {
-  image: string;
-  name: string;
-  sneaker: string;
+  product_image: string;
+  product_name: string;
+  brand: string;
 }
 
-const galleryItems: GalleryItem[] = [
-  {
-    image: ph1,
-    name: "Orlando Diggs",
-    sneaker: "Nike Air Jordans",
-  },
-  {
-    image: ph2,
-    name: "Orlando Diggs",
-    sneaker: "Nike Air Jordans",
-  },
-  {
-    image: ph3,
-    name: "James",
-    sneaker: "Nike Air Jordans",
-  },
-  {
-    image: ph1,
-    name: "Orlando Diggs",
-    sneaker: "Nike Air Jordans",
-  },
-  {
-    image: ph2,
-    name: "Orlando Diggs",
-    sneaker: "Nike Air Jordans",
-  },
-  {
-    image: ph3,
-    name: "James",
-    sneaker: "Nike Air Jordans",
-  },
-];
+// const galleryItems: GalleryItem[] = [
+//   {
+//     image: ph1,
+//     name: "Orlando Diggs",
+//     sneaker: "Nike Air Jordans",
+//   },
+//   {
+//     image: ph2,
+//     name: "Orlando Diggs",
+//     sneaker: "Nike Air Jordans",
+//   },
+//   {
+//     image: ph3,
+//     name: "James",
+//     sneaker: "Nike Air Jordans",
+//   },
+//   {
+//     image: ph1,
+//     name: "Orlando Diggs",
+//     sneaker: "Nike Air Jordans",
+//   },
+//   {
+//     image: ph2,
+//     name: "Orlando Diggs",
+//     sneaker: "Nike Air Jordans",
+//   },
+//   {
+//     image: ph3,
+//     name: "James",
+//     sneaker: "Nike Air Jordans",
+//   },
+// ];
 
 function GalleryCard({ item }: { item: GalleryItem }) {
   return (
     <div className="relative aspect-[4/3] overflow-hidden rounded-lg">
       <Image
-        src={item.image || ph1}
-        alt={item.name}
+        src={`https://api.ksquaredsourcedcity.com/storage/${item?.product_image}` || ph1}
+        alt={item.product_name}
         fill
         className="object-cover"
       />
       <div className="absolute inset-0" />
       <div className="absolute bottom-0 left-0 pb-6 pt-2 text-white bg-[#FFFFFF1A] backdrop-blur-[24px] w-full text-center">
-        <h3 className="text-2xl font-semibold mb-1">{item.name}</h3>
-        <p className="text-gray-200">{item.sneaker}</p>
+        <h3 className="text-2xl font-semibold mb-1">
+          {item?.product_name || "N/A"}
+        </h3>
+        <p className="text-gray-200">{item.brand || "N/A"}</p>
       </div>
     </div>
   );
 }
 
 export function PhotoGallery() {
+  const { data } = useGetAllCommunityQuery({});
+  const galleryItems = data?.data?.communities || [];
+  console.log("data", data);
+  console.log("community data", galleryItems);
+
   const [currentSlide, setCurrentSlide] = useState(0);
-  const [slidesToShow, setSlidesToShow] = useState(3); // Default to 3 slides
+  const [slidesToShow, setSlidesToShow] = useState(3);
   const maxSlide = Math.max(0, galleryItems.length - slidesToShow);
 
   const nextSlide = () => {
@@ -81,9 +87,9 @@ export function PhotoGallery() {
   useEffect(() => {
     const updateSlidesToShow = () => {
       if (window.innerWidth < 768) {
-        setSlidesToShow(1); // Show 1 slide on mobile
+        setSlidesToShow(1);
       } else {
-        setSlidesToShow(3); // Show 3 slides on larger screens
+        setSlidesToShow(3);
       }
     };
 
@@ -107,10 +113,12 @@ export function PhotoGallery() {
             <div
               className="flex transition-transform duration-300 ease-in-out"
               style={{
-                transform: `translateX(-${currentSlide * (100 / slidesToShow)}%)`,
+                transform: `translateX(-${
+                  currentSlide * (100 / slidesToShow)
+                }%)`,
               }}
             >
-              {galleryItems.map((item, index) => (
+              {galleryItems.map((item: GalleryItem, index: number) => (
                 <div
                   key={index}
                   className={`w-full ${

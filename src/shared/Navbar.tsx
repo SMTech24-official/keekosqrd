@@ -22,7 +22,9 @@ export function NavBar() {
   const router = useRouter();
 
   const isActive = (path: string) => pathname === path;
-  const hasSubscription = userData?.stripe_customer_id && token;
+  const hasSubscription = userData?.payments[0]?.status && token;
+
+  
 
   const handleLogout = () => {
     Cookies.remove("token");
@@ -144,6 +146,12 @@ export function NavBar() {
             >
               Continue
             </Link>
+            <button
+            onClick={handleLogout}
+              className="bg-grey text-default px-4 py-2 z-50 rounded-lg text-lg font-medium"
+            >
+             Logout
+            </button>
           </div>
         ) : (
           // Sign In/Sign Up if no token exists

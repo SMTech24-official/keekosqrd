@@ -19,7 +19,7 @@ export function SneakerCard({
   const token = Cookies.get("token");
   const { data: voteMe } = useVoteMeQuery({});
 
-  const hasSubscription = userData?.stripe_customer_id && token;
+  const hasSubscription = userData?.payments[0]?.status&&token;
 
   const handleVote = async (productId: number) => {
     if (!hasSubscription) {
@@ -81,8 +81,8 @@ export function SneakerCard({
         <div className="mt-auto">
           <button
             onClick={() => handleVote(id)}
-            disabled={isVoted || !hasSubscription} // Disable button if already voted or no subscription
-            className={`w-full px-6 py-3 border border-grey rounded-[4px] text-[18px] font-medium mt-8 
+            disabled={isVoted} // Disable button if already voted or no subscription
+            className={`w-full px-6 py-3 border z-[9999] border-grey rounded-[4px] text-[18px] font-medium mt-8 
               ${
                 isVoted
                   ? "bg-primary cursor-not-allowed"

@@ -22,7 +22,7 @@ const stripeApi = createApi({
       query: (data) => ({
         url: 'payment_methods',
         method: 'POST',
-        body: new URLSearchParams(data), // Format data as x-www-form-urlencoded
+        body: new URLSearchParams(data), 
       }),
     }),
   }),

@@ -19,6 +19,7 @@ import {
   useSubscribtionMutation,
 } from "@/redux/api/registerApi";
 import Image from "next/image";
+import Link from "next/link";
 
 // Zod schema for form validation
 const paymentSchema = z.object({
@@ -89,7 +90,8 @@ export default function Payment() {
       // Step 3: Subscribe
       const subscriptionResult = await subscription({
         payment_method: paymentMethodId,
-        price_id: "price_1QhpRzDgYV6zJ17vbxoBnokH",
+        // price_id: "price_1QhpRzDgYV6zJ17vbxoBnokH",
+        price_id: "price_1Qmk5j09AAAGge5I0YT1bEdp",
         payment_intent_id: paymentIntentResult?.data?.payment_intent_id,
       }).unwrap();
       if (subscriptionResult.status) {
@@ -104,7 +106,8 @@ export default function Payment() {
   };
 
   return (
-    <div className=" fixed inset-0  z-50 flex items-center justify-center px-5">
+    <section className=" flex items-center justify-center px-5 h-screen">
+    <div className="  ">
       <div className="sm:max-w-[500px] p-6 bg-white rounded-lg">
         <div className="flex justify-center mb-6">
           <Image
@@ -208,7 +211,13 @@ export default function Payment() {
               : "Pay Now"}
           </button>
         </form>
+      
       </div>
+      <div className="flex justify-center items-center mt-4 ">
+      <Link className="bg-grey text-default px-4 py-2 rounded-md hover:bg-slate-400 z-[9999] cursor-pointer" href='/'>Back to Home</Link>
     </div>
+    </div>
+    
+    </section>
   );
 }
