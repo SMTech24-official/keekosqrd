@@ -5,20 +5,20 @@ import Image from "next/image";
 import { ChevronLeft, ChevronRight, Star } from "lucide-react";
 import { testimonials } from "@/constants/TestimonialData/Testimonialdata";
 
-function StarRating({ rating }: { rating: number }) {
-  return (
-    <div className="flex gap-1">
-      {[...Array(5)].map((_, i) => (
-        <Star
-          key={i}
-          className={`w-5 h-5 ${
-            i < rating ? "text-yellow-400 fill-yellow-400" : "text-gray-300"
-          }`}
-        />
-      ))}
-    </div>
-  );
-}
+// function StarRating({ rating }: { rating: number }) {
+//   return (
+//     <div className="flex gap-1">
+//       {[...Array(5)].map((_, i) => (
+//         <Star
+//           key={i}
+//           className={`w-5 h-5 ${
+//             i < rating ? "text-yellow-400 fill-yellow-400" : "text-gray-300"
+//           }`}
+//         />
+//       ))}
+//     </div>
+//   );
+// }
 
 export function Testimonials() {
   const [currentSlide, setCurrentSlide] = useState(0);
@@ -90,16 +90,10 @@ export function Testimonials() {
                     <div className="w-24 h-24 mx-auto mb-4 relative rounded-full overflow-hidden">
                       <Image
                         src={testimonial.avatar || "/placeholder.svg"}
-                        alt={testimonial.name}
+                        alt={"testimonial pic"}
                         fill
                         className="object-cover"
                       />
-                    </div>
-                    <h3 className="text-xl font-semibold mb-2">
-                      {testimonial.name}
-                    </h3>
-                    <div className="flex justify-center mb-4">
-                      <StarRating rating={testimonial.rating} />
                     </div>
                     <p className="text-gray-600">{testimonial.text}</p>
                   </div>
