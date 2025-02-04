@@ -1,9 +1,9 @@
 "use client";
 
-import { useState, useEffect } from "react";
-import Image from "next/image";
-import { ChevronLeft, ChevronRight, Star } from "lucide-react";
 import { testimonials } from "@/constants/TestimonialData/Testimonialdata";
+import { ChevronLeft, ChevronRight } from "lucide-react";
+import Image from "next/image";
+import { useEffect, useState } from "react";
 
 // function StarRating({ rating }: { rating: number }) {
 //   return (
