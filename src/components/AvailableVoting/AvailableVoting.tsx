@@ -25,7 +25,7 @@ export function AvailableVoting() {
             Available Voting
           </h2>
           <p className="text-gray max-w-3xl mx-auto">
-            Subscribe for $10/month and vote on your favorite sneakers. At the
+            Subscribe for £10/month and vote on your favorite sneakers. At the
             end of the month, a winner is randomly selected by the admin to
             receive the chosen sneaker.
           </p>
