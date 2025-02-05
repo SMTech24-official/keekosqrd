@@ -4,7 +4,7 @@ import { useGetAllCommunityQuery } from "@/redux/api/productApi";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import Image from "next/image";
 import { useEffect, useState } from "react";
-import ph1 from "@/assets/ph1.svg"
+import ph1 from "@/assets/ph1.svg";
 
 interface GalleryItem {
   product_image: string;
@@ -49,7 +49,10 @@ function GalleryCard({ item }: { item: GalleryItem }) {
   return (
     <div className="relative aspect-[4/3] overflow-hidden rounded-lg">
       <Image
-        src={`https://api.ksquaredsourcedcity.com/storage/${item?.product_image}` || ph1}
+        src={
+          `https://api.ksquaredsourcedcity.com/storage/${item?.product_image}` ||
+          ph1
+        }
         alt={item.product_name}
         fill
         className="object-cover"
@@ -57,9 +60,20 @@ function GalleryCard({ item }: { item: GalleryItem }) {
       <div className="absolute inset-0" />
       <div className="absolute bottom-0 left-0 pb-6 pt-2 text-white bg-[#FFFFFF1A] backdrop-blur-[24px] w-full text-center">
         <h3 className="text-2xl font-semibold mb-1">
-          {item?.product_name || "N/A"}
+          {item?.product_name !== "undefined" &&
+          item?.product_name !== null &&
+          item?.product_name !== ""
+            ? item?.product_name
+            : ""}
         </h3>
-        <p className="text-gray-200">{item.brand || "N/A"}</p>
+        <p className="text-gray-200">
+          {" "}
+          {item?.brand !== "undefined" &&
+          item?.brand !== null &&
+          item?.brand !== ""
+            ? item?.brand
+            : ""}
+        </p>
       </div>
     </div>
   );

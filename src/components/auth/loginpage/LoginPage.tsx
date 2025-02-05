@@ -1,28 +1,27 @@
 "use client";
 
-import * as React from "react";
-import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import Cookies from "js-cookie";
 import { useRouter } from "next/navigation";
+import * as React from "react";
+import { useForm } from "react-hook-form";
 
+import logo from "@/assets/home/kkk-logo.png";
 import { Button } from "@/components/ui/button";
 import {
   Card,
   CardContent,
-  CardHeader,
-  CardTitle,
   CardDescription,
+  CardHeader,
 } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import Link from "next/link";
-import { Eye, EyeOff } from "lucide-react";
-import { loginSchema, LoginSchemaType } from "@/types/loginschema";
 import { useLoginMutation } from "@/redux/api/registerApi";
-import { toast } from "sonner";
+import { loginSchema, LoginSchemaType } from "@/types/loginschema";
+import { Eye, EyeOff } from "lucide-react";
 import Image from "next/image";
-import logo from "@/assets/home/kkk-logo.png"
+import Link from "next/link";
+import { toast } from "sonner";
 
 export default function LoginPage() {
   const [showPassword, setShowPassword] = React.useState(false);
@@ -49,7 +48,8 @@ export default function LoginPage() {
     } catch (err: unknown) {
       // Handle errors
       const error = err as { data?: { message?: string } };
-      const errorMessage = error?.data?.message || "An error occurred during login.";
+      const errorMessage =
+        error?.data?.message || "An error occurred during login.";
       console.error("Login failed:", error);
       toast.error(errorMessage); // Show API error message
     }
@@ -58,17 +58,18 @@ export default function LoginPage() {
     <div className="flex justify-center items-center h-screen">
       <Card className="w-full max-w-md mx-auto">
         <CardHeader className="space-y-1 text-center">
-          <CardTitle className="md:text-[34px] font-[600] text-2xl text-[#1D2939] mb-5">
-            Sign in
-          </CardTitle>
-          <Image className="w-[100px] mx-auto object-contain" src={logo} alt="logo"/>
+          <Image
+            className="w-[100px] mx-auto object-contain"
+            src={logo}
+            alt="logo"
+          />
           <CardDescription className="md:text-[16px] text-[15px] pt-3 font-[400] text-[#475467]">
             Please Enter Your Email And Password Below!
           </CardDescription>
         </CardHeader>
         <CardContent>
-        <form className="space-y-4" onSubmit={handleSubmit(onSubmit)}>
-        {/* Email Field */}
+          <form className="space-y-4" onSubmit={handleSubmit(onSubmit)}>
+            {/* Email Field */}
             <div className="space-y-2">
               <Label htmlFor="email">Email address</Label>
               <Input
@@ -125,7 +126,8 @@ export default function LoginPage() {
             </div>
 
             {/* Submit Button */}
-            <Button disabled={isLoading}
+            <Button
+              disabled={isLoading}
               className="w-full z-50 bg-grey text-default"
               type="submit"
             >

@@ -1,13 +1,15 @@
 "use client";
 
-import { useForm, SubmitHandler } from "react-hook-form";
-import Cookies from "js-cookie";
-import { z } from "zod";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { RegisterSchema } from "@/types/RegisterSchema";
+import logo from "@/assets/home/kkk-logo.png";
 import { useRegisterMutation } from "@/redux/api/registerApi";
-import { toast } from "sonner";
+import { RegisterSchema } from "@/types/RegisterSchema";
+import { zodResolver } from "@hookform/resolvers/zod";
+import Cookies from "js-cookie";
+import Image from "next/image";
 import { useRouter } from "next/navigation";
+import { SubmitHandler, useForm } from "react-hook-form";
+import { toast } from "sonner";
+import { z } from "zod";
 
 // Define Zod schema for form validation
 
@@ -53,10 +55,19 @@ export default function Register() {
   };
 
   return (
-    <div className="max-w-2xl mx-auto p-8 rounded-lg mt-20 shadow-md border border-gray-200">
-      <h2 className="text-2xl font-semibold mb-6 text-default">Register</h2>
+    <div className="max-w-2xl mx-auto p-8 rounded-lg mt-0 lg:mt-24 shadow-md border border-gray-200">
+      <div>
+        <Image
+          src={logo}
+          className="w-[100px] mx-auto object-contain"
+          alt="logo"
+        />
+      </div>
+      <h2 className="text-2xl font-semibold mb-6 text-defaul text-center mt-5">
+        Register
+      </h2>
       <form onSubmit={handleSubmit(onSubmit)}>
-        <div className="grid grid-cols-2 gap-6">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
           {/* First Name */}
           <div>
             <label

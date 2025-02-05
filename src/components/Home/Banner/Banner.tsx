@@ -21,7 +21,7 @@ export default function Banner() {
 
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center pt-[35px] md:pt-[62px]">
-      <div className="space-y-6 text-justify md:text-start">
+      <div className="space-y-6  md:text-start">
         <h1 className="text-[30px] md:text-[40px] lg:text-[53px] font-bold  text-default">
           Win Your Favourite Sneakers only £10 a month
         </h1>

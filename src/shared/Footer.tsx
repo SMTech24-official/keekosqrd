@@ -57,6 +57,15 @@ export default function Footer() {
                 tiktok.com
               </a>
             </li>
+            <li className="mb-3">
+              <a
+                href="https://www.facebook.com/people/Ksquared-sourced-city/61572353114820"
+                target="_blank"
+                className="hover:underline text-gray"
+              >
+                facebook.com
+              </a>
+            </li>
           </ul>
         </div>
 

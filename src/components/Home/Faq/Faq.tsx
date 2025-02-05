@@ -1,24 +1,13 @@
 "use client";
 import { faqContent } from "@/constants/FaqContent";
-import { useGetUserQuery } from "@/redux/api/registerApi";
 import { ChevronDown } from "lucide-react";
-import { useRouter } from "next/navigation";
 import { useState } from "react";
 
 const Faq = () => {
   const [openSection, setOpenSection] = useState<string | null>(null);
-  const { data } = useGetUserQuery(undefined);
-  const userData = data?.data?.user;
-  const router = useRouter();
 
   const toggleSection = (question: string) => {
     setOpenSection(openSection === question ? null : question);
-  };
-
-  const handleJoinNowClick = () => {
-    if (!userData) {
-      router.push("/register");
-    }
   };
 
   return (
@@ -26,27 +15,8 @@ const Faq = () => {
       <h1 className="text-center text-3xl font-bold mb-12">
         Frequently Asked Questions (FAQ)
       </h1>
-      <div className="flex flex-col lg:flex-row justify-center gap-5">
+      <div className="">
         {/* Left Column */}
-        <div className="md:w-[45%]">
-          <p className="text-gray-600 mb-6 text-justify">
-            Not is there anyone who loves or pursues or desires to obtain pain
-            of itself, because it is pain, but occasionally circumstances occur
-            in which toil and pain can procure him some great pleasure.
-          </p>
-          <div className="flex justify-center md:justify-start">
-            
-            {!userData && (
-              <button
-                className="px-6 py-3 bg-grey text-default rounded-md hover:bg-gray-300 transition text-[18px] font-medium my-3"
-                onClick={handleJoinNowClick}
-              >
-                Join Now
-              </button>
-            )}
-          </div>
-        </div>
-
         {/* Right Column */}
         <div className="md:w-1/2 bg-transparent mx-auto">
           {faqContent.map((section, index) => (

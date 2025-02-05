@@ -56,7 +56,7 @@ export function SneakerCard({
           src={`${process.env.NEXT_PUBLIC_STORAGE}/${product_image} `}
           alt={"product"}
           fill
-          className="object-cover h-full"
+          className="object-cover h-full rounded-lg"
         />
       </div>
 
