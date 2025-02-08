@@ -18,6 +18,7 @@ const registerApi = baseApi.injectEndpoints({
               body: data,
             }),
           }),
+          
           subscribtion: builder.mutation({
             query: (data) => ({
               url: "/subscribe",

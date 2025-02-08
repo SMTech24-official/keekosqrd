@@ -4,7 +4,7 @@ import Cookies from "js-cookie"; // Import js-cookie
 export const baseApi = createApi({
   reducerPath: "baseApi",
   baseQuery: fetchBaseQuery({
-        baseUrl: process.env.NEXT_PUBLIC_BASE_URL_LOCAL,
+    baseUrl: process.env.NEXT_PUBLIC_BASE_URL_LOCAL,
     prepareHeaders: (headers) => {
       const token = Cookies.get("token");
 
@@ -13,12 +13,12 @@ export const baseApi = createApi({
         console.log("Token is set:", token); // Optional: Log the token
       } else {
       }
-// hello
+      // hello
       return headers;
     },
   }),
   endpoints: () => ({}),
-  tagTypes: ["User","Vote", "products", "community"],
+  tagTypes: ["User", "Vote", "products", "community"],
 });
 
 export default baseApi;

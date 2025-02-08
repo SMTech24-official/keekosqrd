@@ -168,7 +168,7 @@ export default function Register() {
               htmlFor="zip_code"
               className="block text-gray-600 font-medium mb-1"
             >
-              Zip Code
+              Post Code
             </label>
             <input
               type="text"

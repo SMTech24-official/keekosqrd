@@ -38,6 +38,7 @@ const paymentSchema = z.object({
     .max(2, "Invalid year format"),
   cvc: z.string().min(3, "CVC must be 3 digits").max(3, "CVC must be 3 digits"),
   type: z.string().min(1, "Card type is required"),
+  // post_code: z.string().min(4, "Post code is required"), 
 });
 
 export default function Payment() {
@@ -58,6 +59,7 @@ export default function Payment() {
       exp_year: "",
       cvc: "",
       type: "",
+      // post_code: "", 
     },
   });
 
@@ -68,6 +70,7 @@ export default function Payment() {
     formData.append("card[exp_year]", values.exp_year);
     formData.append("card[cvc]", values.cvc);
     formData.append("type", values.type);
+    // formData.append("post_code", values.post_code); 
 
     try {
       // Step 1: Create payment method
@@ -85,7 +88,7 @@ export default function Payment() {
       const paymentIntentResult = await createPaymentIntent({
         payment_method: paymentMethodId,
       }).unwrap();
-      console.log(paymentIntentResult?.data?.payment_intent_id);
+      console.log("paymentIntId: ", paymentIntentResult?.data?.payment_intent_id);
 
       // Step 3: Subscribe
       const subscriptionResult = await subscription({
@@ -106,9 +109,8 @@ export default function Payment() {
   };
 
   return (
-    <section className=" flex items-center justify-center px-5 h-screen">
-    <div className="  ">
-      <div className="sm:max-w-[500px] p-6 bg-white rounded-lg">
+    <section className="flex items-center justify-center px-5 h-screen">
+      <div className="max-w-[550px] p-6 bg-white rounded-lg">
         <div className="flex justify-center mb-6">
           <Image
             src={logo}
@@ -128,9 +130,7 @@ export default function Payment() {
                 placeholder="4242 4242 4242 4242"
                 className="pr-12"
               />
-              <div className="absolute right-3 top-1/2 -translate-y-1/2 flex gap-1"></div>
             </div>
-            {/* Display error message for number */}
             {form.formState.errors.number && (
               <span className="text-sm text-red-500">
                 {form.formState.errors.number.message}
@@ -138,14 +138,13 @@ export default function Payment() {
             )}
           </div>
 
-          <div className="grid grid-cols-3 gap-4">
+          <div className="grid grid-cols-4 gap-4">
             <div>
               <Input
                 {...form.register("exp_month")}
                 placeholder="MM"
                 className="w-full"
               />
-              {/* Display error message for exp_month */}
               {form.formState.errors.exp_month && (
                 <span className="text-sm text-red-500">
                   {form.formState.errors.exp_month.message}
@@ -158,7 +157,6 @@ export default function Payment() {
                 placeholder="YY"
                 className="w-full"
               />
-              {/* Display error message for exp_year */}
               {form.formState.errors.exp_year && (
                 <span className="text-sm text-red-500">
                   {form.formState.errors.exp_year.message}
@@ -171,13 +169,26 @@ export default function Payment() {
                 placeholder="CVC"
                 className="w-full"
               />
-              {/* Display error message for cvc */}
               {form.formState.errors.cvc && (
                 <span className="text-sm text-red-500">
                   {form.formState.errors.cvc.message}
                 </span>
               )}
             </div>
+
+            {/* <div>
+
+            <Input
+              {...form.register("post_code")}
+              placeholder="Post code"
+              className="w-full"
+            />
+            {form.formState.errors.post_code && (
+              <span className="text-sm text-red-500">
+                {form.formState.errors.post_code.message}
+              </span>
+            )}
+          </div> */}
           </div>
 
           <div>
@@ -189,7 +200,6 @@ export default function Payment() {
               <option value="">Select Type</option>
               <option value="card">Card</option>
             </select>
-            {/* Display error message for type */}
             {form.formState.errors.type && (
               <span className="text-sm text-red-500">
                 {form.formState.errors.type.message}
@@ -197,27 +207,32 @@ export default function Payment() {
             )}
           </div>
 
+          {/* New Post Code Field */}
+         
+
           <button
             type="submit"
-            disabled={isPyLoading || isPyLoading || isPyLoading}
-            className={`w-full py-3 bg-[#0872BA]  text-white rounded-lg ${
+            disabled={isPyLoading || isLoading || isSubscribing}
+            className={`w-full py-3 bg-[#0872BA] text-white rounded-lg ${
               isLoading || isPyLoading || isSubscribing
                 ? "bg-[#0872BA] text-white"
                 : "bg-[#0872BA]"
             }`}
           >
             {isLoading || isPyLoading || isSubscribing
-              ? "Proccesing"
+              ? "Processing"
               : "Pay Now"}
           </button>
         </form>
-      
+        <div className="flex justify-center items-center mt-4">
+          <Link
+            className="bg-grey text-default px-4 py-2 rounded-md hover:bg-slate-400 cursor-pointer"
+            href="/"
+          >
+            Back to Home
+          </Link>
+        </div>
       </div>
-      <div className="flex justify-center items-center mt-4 ">
-      <Link className="bg-grey text-default px-4 py-2 rounded-md hover:bg-slate-400 z-[9999] cursor-pointer" href='/'>Back to Home</Link>
-    </div>
-    </div>
-    
     </section>
   );
 }
