@@ -128,7 +128,7 @@ export default function Register() {
               type="text"
               id="country"
               {...register("country")}
-              placeholder="USA"
+              placeholder="UK"
               className={`w-full border px-4 py-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 ${
                 errors.country ? "border-red-500" : "border-gray-300"
               }`}
@@ -152,7 +152,7 @@ export default function Register() {
               type="text"
               id="city"
               {...register("city")}
-              placeholder="New York"
+              placeholder="London"
               className={`w-full border px-4 py-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 ${
                 errors.city ? "border-red-500" : "border-gray-300"
               }`}
@@ -162,7 +162,7 @@ export default function Register() {
             )}
           </div>
 
-          {/* Zip Code */}
+          {/* post Code */}
           <div>
             <label
               htmlFor="zip_code"
@@ -174,7 +174,7 @@ export default function Register() {
               type="text"
               id="zip_code"
               {...register("zip_code")}
-              placeholder="10001"
+             placeholder="SW1A 1AA"
               className={`w-full border px-4 py-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 ${
                 errors.zip_code ? "border-red-500" : "border-gray-300"
               }`}
@@ -198,7 +198,7 @@ export default function Register() {
               type="text"
               id="address"
               {...register("address")}
-              placeholder="123 Main Street"
+              placeholder="49 Featherstone Street"
               className={`w-full border px-4 py-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 ${
                 errors.address ? "border-red-500" : "border-gray-300"
               }`}

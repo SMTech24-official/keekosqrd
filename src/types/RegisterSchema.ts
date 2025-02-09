@@ -15,8 +15,8 @@ export const RegisterSchema = z
     city: z.string().min(1, { message: "City is required" }),
     zip_code: z
       .string()
-      .min(5, { message: "Zip code must be at least 5 characters" })
-      .max(10, { message: "Zip code cannot exceed 10 characters" }),
+      .min(5, { message: "Post code must be at least 5 characters" })
+      .max(10, { message: "Post code cannot exceed 10 characters" }),
     address: z.string().min(1, { message: "Address is required" }),
     email: z
       .string()
