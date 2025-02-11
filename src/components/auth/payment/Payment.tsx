@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
+
 "use client";
 
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -20,6 +22,7 @@ import { useCreatePaymentMethodMutation } from "@/redux/api/stripeApi";
 import Image from "next/image";
 import Link from "next/link";
 import { useDispatch } from "react-redux";
+
 
 // Zod schema for form validation
 const paymentSchema = z.object({
@@ -105,6 +108,7 @@ export default function Payment() {
       }
       toast.success(subscriptionResult?.message);
     } catch (err : any) {
+    
       console.log("error: ", err.data.error.message);
       toast.error(err?.data?.error?.message);
     }
