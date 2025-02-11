@@ -1,25 +1,25 @@
 "use client";
 
-import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { useForm } from "react-hook-form";
 import { z } from "zod";
 
 import { Input } from "@/components/ui/input";
 
-import { useRouter } from "next/navigation";
 import logo from "@/assets/home/kkk-logo.png";
+import { useRouter } from "next/navigation";
 
 import { toast } from "sonner";
 
-import { useCreatePaymentMethodMutation } from "@/redux/api/stripeApi";
 import { setPayment } from "@/redux/allSlice/paymentSlice";
-import { useDispatch } from "react-redux";
 import {
   useCreatePaymentIntentMutation,
   useSubscribtionMutation,
 } from "@/redux/api/registerApi";
+import { useCreatePaymentMethodMutation } from "@/redux/api/stripeApi";
 import Image from "next/image";
 import Link from "next/link";
+import { useDispatch } from "react-redux";
 
 // Zod schema for form validation
 const paymentSchema = z.object({
@@ -38,7 +38,7 @@ const paymentSchema = z.object({
     .max(2, "Invalid year format"),
   cvc: z.string().min(3, "CVC must be 3 digits").max(3, "CVC must be 3 digits"),
   type: z.string().min(1, "Card type is required"),
-  // post_code: z.string().min(4, "Post code is required"), 
+  // post_code: z.string().min(4, "Post code is required"),
 });
 
 export default function Payment() {
@@ -59,7 +59,7 @@ export default function Payment() {
       exp_year: "",
       cvc: "",
       type: "",
-      // post_code: "", 
+      // post_code: "",
     },
   });
 
@@ -70,7 +70,7 @@ export default function Payment() {
     formData.append("card[exp_year]", values.exp_year);
     formData.append("card[cvc]", values.cvc);
     formData.append("type", values.type);
-    // formData.append("post_code", values.post_code); 
+    // formData.append("post_code", values.post_code);
 
     try {
       // Step 1: Create payment method
@@ -88,7 +88,10 @@ export default function Payment() {
       const paymentIntentResult = await createPaymentIntent({
         payment_method: paymentMethodId,
       }).unwrap();
-      console.log("paymentIntId: ", paymentIntentResult?.data?.payment_intent_id);
+      console.log(
+        "paymentIntId: ",
+        paymentIntentResult?.data?.payment_intent_id
+      );
 
       // Step 3: Subscribe
       const subscriptionResult = await subscription({
@@ -101,10 +104,9 @@ export default function Payment() {
         router.push("/");
       }
       toast.success(subscriptionResult?.message);
-    } catch (err) {
-      toast.error(
-        `An error occurred: ${(err as Error).message || "Please try again."}`
-      );
+    } catch (err : any) {
+      console.log("error: ", err.data.error.message);
+      toast.error(err?.data?.error?.message);
     }
   };
 
@@ -175,20 +177,6 @@ export default function Payment() {
                 </span>
               )}
             </div>
-
-            {/* <div>
-
-            <Input
-              {...form.register("post_code")}
-              placeholder="Post code"
-              className="w-full"
-            />
-            {form.formState.errors.post_code && (
-              <span className="text-sm text-red-500">
-                {form.formState.errors.post_code.message}
-              </span>
-            )}
-          </div> */}
           </div>
 
           <div>
@@ -208,7 +196,6 @@ export default function Payment() {
           </div>
 
           {/* New Post Code Field */}
-         
 
           <button
             type="submit"
