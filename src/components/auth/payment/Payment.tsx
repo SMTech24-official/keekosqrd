@@ -73,46 +73,54 @@ export default function Payment() {
     formData.append("card[exp_year]", values.exp_year);
     formData.append("card[cvc]", values.cvc);
     formData.append("type", values.type);
-    // formData.append("post_code", values.post_code);
-
+  
     try {
       // Step 1: Create payment method
       const paymentMethodResult = await payMethod(formData).unwrap();
-
       if (!paymentMethodResult?.id) {
         toast.error("Failed to create payment method.");
         return;
       }
-
       const paymentMethodId = paymentMethodResult.id;
       dispatch(setPayment({ paymentId: paymentMethodId }));
-
+  
       // Step 2: Create payment intent
-      const paymentIntentResult = await createPaymentIntent({
-        payment_method: paymentMethodId,
-      }).unwrap();
-      console.log(
-        "paymentIntId: ",
-        paymentIntentResult?.data?.payment_intent_id
-      );
-
+      let paymentIntentId = "";
+      try {
+        const paymentIntentResult = await createPaymentIntent({
+          payment_method: paymentMethodId,
+          price_id: "price_1Qmk5j09AAAGge5I0YT1bEdp",
+        }).unwrap();
+  
+        paymentIntentId = paymentIntentResult?.data?.payment_intent_id;
+      } catch (err: any) {
+        // Handle payment intent error
+        console.log(err)
+      }
+  
+      console.log("Using paymentIntentId: ", paymentIntentId);
+  
       // Step 3: Subscribe
       const subscriptionResult = await subscription({
-        payment_method: paymentMethodId,
-        // price_id: "price_1QhpRzDgYV6zJ17vbxoBnokH",
         price_id: "price_1Qmk5j09AAAGge5I0YT1bEdp",
-        payment_intent_id: paymentIntentResult?.data?.payment_intent_id,
       }).unwrap();
+  
       if (subscriptionResult.status) {
         router.push("/");
       }
       toast.success(subscriptionResult?.message);
-    } catch (err : any) {
-    
-      console.log("error: ", err.data.error.message);
-      toast.error(err?.data?.error?.message);
+    } catch (err: any) {
+      // Check if redirect_url exists in the error data and redirect
+      if (err?.data?.data?.redirect_url) {
+        window.location.href = err.data.data.redirect_url;
+        return;
+      }
+      // Show error message if no redirect_url
+      toast.error(err?.data?.error?.message || "Something went wrong.");
     }
   };
+  
+  
 
   return (
     <section className="flex items-center justify-center px-5 h-screen">
