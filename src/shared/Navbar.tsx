@@ -32,6 +32,8 @@ export function NavBar() {
     window.location.reload();
   };
 
+  
+
   return (
     <div className="container mx-auto  px-4">
       <nav className="py-4 flex items-center justify-between">

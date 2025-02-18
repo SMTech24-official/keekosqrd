@@ -42,11 +42,11 @@ export default function CommunityBanner() {
               to the table for you!
             </p>
             {/* Call to Action */}
-            <div className="mt-4">
+            {/* <div className="mt-4">
               <button className="px-6 py-3 bg-grey text-default font-semibold rounded-lg shadow hover:bg-gray hover:text-white">
                 Join the Community
               </button>
-            </div>
+            </div> */}
           </div>
 
           {/* Right Image */}

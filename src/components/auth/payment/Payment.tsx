@@ -23,7 +23,6 @@ import Image from "next/image";
 import Link from "next/link";
 import { useDispatch } from "react-redux";
 
-
 // Zod schema for form validation
 const paymentSchema = z.object({
   number: z
@@ -96,19 +95,21 @@ export default function Payment() {
         paymentIntentResult?.data?.payment_intent_id
       );
 
+      console.log("paymentmethod", paymentMethodId);
+
       // Step 3: Subscribe
       const subscriptionResult = await subscription({
         payment_method: paymentMethodId,
         // price_id: "price_1QhpRzDgYV6zJ17vbxoBnokH",
-        price_id: "price_1Qmk5j09AAAGge5I0YT1bEdp",
+        // price_id: "price_1Qmk5j09AAAGge5I0YT1bEdp",
+        price_id: "price_1QtSpH09AAAGge5IbxTaBlNi",
         payment_intent_id: paymentIntentResult?.data?.payment_intent_id,
       }).unwrap();
       if (subscriptionResult.status) {
         router.push("/");
       }
       toast.success(subscriptionResult?.message);
-    } catch (err : any) {
-    
+    } catch (err: any) {
       console.log("error: ", err.data.error.message);
       toast.error(err?.data?.error?.message);
     }
