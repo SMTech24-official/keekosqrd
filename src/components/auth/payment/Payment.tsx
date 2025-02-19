@@ -23,7 +23,6 @@ import Image from "next/image";
 import Link from "next/link";
 import { useDispatch } from "react-redux";
 
-
 // Zod schema for form validation
 const paymentSchema = z.object({
   number: z
@@ -73,7 +72,7 @@ export default function Payment() {
     formData.append("card[exp_year]", values.exp_year);
     formData.append("card[cvc]", values.cvc);
     formData.append("type", values.type);
-  
+
     try {
       // Step 1: Create payment method
       const paymentMethodResult = await payMethod(formData).unwrap();
@@ -83,7 +82,7 @@ export default function Payment() {
       }
       const paymentMethodId = paymentMethodResult.id;
       dispatch(setPayment({ paymentId: paymentMethodId }));
-  
+
       // Step 2: Create payment intent
       let paymentIntentId = "";
       try {
@@ -91,20 +90,21 @@ export default function Payment() {
           payment_method: paymentMethodId,
           price_id: "price_1Qmk5j09AAAGge5I0YT1bEdp",
         }).unwrap();
-  
+
         paymentIntentId = paymentIntentResult?.data?.payment_intent_id;
       } catch (err: any) {
         // Handle payment intent error
-        console.log(err)
+        console.log(err);
       }
-  
+
       console.log("Using paymentIntentId: ", paymentIntentId);
-  
+
       // Step 3: Subscribe
       const subscriptionResult = await subscription({
-        price_id: "price_1Qmk5j09AAAGge5I0YT1bEdp",
+        // price_id: "price_1Qmk5j09AAAGge5I0YT1bEdp",
+        price_id: "price_1QtSpH09AAAGge5IbxTaBlNi",
       }).unwrap();
-  
+
       if (subscriptionResult.status) {
         router.push("/");
       }
@@ -119,8 +119,6 @@ export default function Payment() {
       toast.error(err?.data?.error?.message || "Something went wrong.");
     }
   };
-  
-  
 
   return (
     <section className="flex items-center justify-center px-5 h-screen">
