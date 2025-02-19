@@ -88,7 +88,8 @@ export default function Payment() {
       try {
         const paymentIntentResult = await createPaymentIntent({
           payment_method: paymentMethodId,
-          price_id: "price_1Qmk5j09AAAGge5I0YT1bEdp",
+          // price_id: "price_1Qmk5j09AAAGge5I0YT1bEdp",
+          price_id: "price_1QtSpH09AAAGge5IbxTaBlNi",
         }).unwrap();
 
         paymentIntentId = paymentIntentResult?.data?.payment_intent_id;
