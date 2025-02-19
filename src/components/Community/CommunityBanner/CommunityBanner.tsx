@@ -1,3 +1,4 @@
+"use client"
 import React from "react";
 import Image from "next/image";
 import bannerImage from "@/assets/products/c55.jpg";
