@@ -112,8 +112,8 @@ export default function Payment() {
       toast.success(subscriptionResult?.message);
     } catch (err: any) {
       // Check if redirect_url exists in the error data and redirect
+      console.log("error", err)
       if (err?.data?.data?.redirect_url) {
-        console.log("error", err)
         console.log("super", err?.data?.data)
         window.location.href = err.data.data.redirect_url;
         return;
