@@ -41,7 +41,7 @@ export default function Register() {
 
       if (response?.data?.token) {
         if (!isLoading) {
-          router.push("/payment");
+          router.push("/Checkout");
           toast.success("Registration successful!");
         }
       }

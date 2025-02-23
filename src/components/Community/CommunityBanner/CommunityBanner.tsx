@@ -1,13 +1,14 @@
-"use client"
-import React from "react";
-import Image from "next/image";
+"use client";
 import bannerImage from "@/assets/products/c55.jpg";
-import { useGetUserQuery } from "@/redux/api/registerApi";
+import Cookies from "js-cookie";
+import Image from "next/image";
+import Link from "next/link";
 
 export default function CommunityBanner() {
-  const { data } = useGetUserQuery(undefined);
-  const userData = data?.data?.user;
-  const hasSubscription = userData?.payments[0]?.status;
+  // const { data } = useGetUserQuery(undefined);
+  // const userData = data?.data?.user;
+  // const hasSubscription = userData?.payments[0]?.status;
+  const token = Cookies.get("token");
   return (
     <div className="relative pt-20 bg-gray-50">
       <div className="container mx-auto px-5">
@@ -47,13 +48,16 @@ export default function CommunityBanner() {
               to the table for you!
             </p>
             {/* Call to Action */}
-            {hasSubscription ? (
+            {token ? (
               " "
             ) : (
               <div className="mt-4">
-                <button className="px-6 py-3 bg-grey text-default font-semibold rounded-lg shadow hover:bg-gray hover:text-white">
-                  Join the Community
-                </button>
+                <Link href={"/login"}>
+                  {" "}
+                  <button className="px-6 py-3 bg-grey text-default font-semibold rounded-lg shadow hover:bg-gray hover:text-white">
+                    Join the Community
+                  </button>
+                </Link>
               </div>
             )}
           </div>

@@ -1,4 +1,3 @@
-import { useGetUserQuery } from "@/redux/api/registerApi";
 import { useGiveVoteMutation, useVoteMeQuery } from "@/redux/api/voteApi";
 import { SneakerCardProps } from "@/types/Interfaces";
 import Cookies from "js-cookie";
@@ -14,15 +13,16 @@ export function SneakerCard({
   model,
 }: SneakerCardProps) {
   const [giveVote] = useGiveVoteMutation();
-  const { data } = useGetUserQuery(undefined);
-  const userData = data?.data?.user;
+  // const { data } = useGetUserQuery(undefined);
+  // const userData = data?.data?.user;
   const token = Cookies.get("token");
   const { data: voteMe } = useVoteMeQuery({});
+  // console.log("votelist", voteMe)
 
-  const hasSubscription = userData?.payments[0]?.status&&token;
+  // const hasSubscription = userData?.payments[0]?.status&&token;
 
   const handleVote = async (productId: number) => {
-    if (!hasSubscription) {
+    if (!token) {
       toast.error("You need an active subscription to vote.");
       return;
     }

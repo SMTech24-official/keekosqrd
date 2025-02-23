@@ -5,6 +5,7 @@ export const baseApi = createApi({
   reducerPath: "baseApi",
   baseQuery: fetchBaseQuery({
     baseUrl: process.env.NEXT_PUBLIC_BASE_URL_LOCAL,
+    // baseUrl: "https://b769-182-252-68-225.ngrok-free.app/api",
     prepareHeaders: (headers) => {
       const token = Cookies.get("token");
 
@@ -18,7 +19,7 @@ export const baseApi = createApi({
     },
   }),
   endpoints: () => ({}),
-  tagTypes: ["User", "Vote", "products", "community"],
+  tagTypes: ["User", "Vote", "products", "community", "Checkout"],
 });
 
 export default baseApi;

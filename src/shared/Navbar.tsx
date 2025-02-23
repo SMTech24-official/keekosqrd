@@ -1,19 +1,24 @@
 "use client";
-import React, { useState } from "react";
-import Link from "next/link";
-import Image from "next/image";
-import { usePathname } from "next/navigation";
-import { Menu, X } from "lucide-react";
+import { useEffect, useState } from "react";
 import logo from "@/assets/home/kkk-logo.png";
+import profile from "@/assets/profile.jpg";
 import Banner from "@/components/Home/Banner/Banner";
+import {
+  useCancelSubscriptionMutation,
+  useResumeSubscriptionMutation,
+} from "@/redux/api/CheckoutApi";
 import { useGetUserQuery } from "@/redux/api/registerApi";
 import Cookies from "js-cookie"; // Import js-cookie
-import profile from "@/assets/profile.jpg";
-import { useRouter } from "next/navigation";
+import { Menu, X } from "lucide-react";
+import Image from "next/image";
+import Link from "next/link";
+import { usePathname, useRouter } from "next/navigation";
+import { toast } from "sonner";
 
 export function NavBar() {
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const [isCanceled, setIsCanceled] = useState(false);
 
   const { data } = useGetUserQuery(undefined);
   const pathname = usePathname();
@@ -21,10 +26,16 @@ export function NavBar() {
   const token = Cookies.get("token");
   const router = useRouter();
 
-  const isActive = (path: string) => pathname === path;
-  const hasSubscription = userData?.payments[0]?.status && token;
+  // Check localStorage on mount to set cancellation state
+  useEffect(() => {
+    const storedState = localStorage.getItem("isCanceled");
+    if (storedState === "true") {
+      setIsCanceled(true);
+    }
+  }, []);
 
-  
+  const isActive = (path: string) => pathname === path;
+  const hasSubscription = userData?.payments[0]?.stripe_status && token;
 
   const handleLogout = () => {
     Cookies.remove("token");
@@ -32,10 +43,45 @@ export function NavBar() {
     window.location.reload();
   };
 
-  
+  const [cancelSubscriptionFn] = useCancelSubscriptionMutation();
+  const [resumeSubscriptionFn] = useResumeSubscriptionMutation();
+
+  // Cancel subscription
+  const handleCancel = async () => {
+    try {
+      const response = await cancelSubscriptionFn({}).unwrap();
+      console.log("Cancel response: ", response);
+      toast.success("Subscription has been cancelled successfully!");
+      setIsCanceled(true);
+      localStorage.setItem("isCanceled", "true");
+    } catch (error: unknown) {
+      toast.error(
+        typeof error === "string"
+          ? error
+          : "An error occurred while cancelling the subscription."
+      );
+    }
+  };
+
+  // Resume subscription
+  const handleResume = async () => {
+    try {
+      const response = await resumeSubscriptionFn({}).unwrap();
+      console.log("Resume response: ", response);
+      toast.success("Subscription has been resumed successfully!");
+      setIsCanceled(false);
+      localStorage.setItem("isCanceled", "false");
+    } catch (error: unknown) {
+      toast.error(
+        typeof error === "string"
+          ? error
+          : "An error occurred while resuming the subscription."
+      );
+    }
+  };
 
   return (
-    <div className="container mx-auto  px-4">
+    <div className="container mx-auto px-4">
       <nav className="py-4 flex items-center justify-between">
         {/* Logo */}
         <Link href="/" className="flex items-center">
@@ -82,18 +128,10 @@ export function NavBar() {
           >
             FAQ
           </Link>
-          {/* <Link
-            href="/contact"
-            className={`text-lg hover:text-gray-600 ${
-              isActive("/contact") ? "text-blue-500 font-bold" : "text-default"
-            }`}
-          >
-            Contact
-          </Link> */}
         </div>
 
         {hasSubscription ? (
-          // Profile dropdown when both subscription_id and token exist
+          // Profile dropdown when both subscription and token exist
           <div className="relative">
             <div
               className="flex items-center gap-4 cursor-pointer z-50"
@@ -117,19 +155,31 @@ export function NavBar() {
 
             {/* Dropdown */}
             {isDropdownOpen && (
-              <div className="absolute right-0 mt-2 bg-white shadow-md rounded-lg w-48 p-4 z-50">
+              <div className="absolute right-0 mt-2 bg-white shadow-md rounded-lg w-60 p-4 z-50">
                 <Link
                   href="https://dashboard.ksquaredsourcedcity.com"
                   className="block text-gray-700 py-2 px-4 hover:bg-gray-200 rounded-lg"
                 >
                   Dashboard
                 </Link>
-                {/* <Link
-                  href="/settings"
-                  className="block text-gray-700 py-2 px-4 hover:bg-gray-200 rounded-lg"
-                >
-                  Settings
-                </Link> */}
+
+                {/* Toggle between Cancel and Resume based on isCanceled */}
+                {!isCanceled ? (
+                  <button
+                    className="block text-gray-700 py-2 px-4 w-full text-left hover:bg-gray-200 rounded-lg z-50"
+                    onClick={handleCancel}
+                  >
+                    Cancel Subscription
+                  </button>
+                ) : (
+                  <button
+                    className="block text-gray-700 py-2 px-4 w-full text-left hover:bg-gray-200 rounded-lg z-50"
+                    onClick={handleResume}
+                  >
+                    Resume Subscription
+                  </button>
+                )}
+
                 <button
                   className="block text-gray-700 py-2 px-4 w-full text-left hover:bg-gray-200 rounded-lg z-50"
                   onClick={handleLogout}
@@ -143,16 +193,16 @@ export function NavBar() {
           // If only token exists, show the "Continue" button
           <div className="flex items-center gap-6">
             <Link
-              href="/payment"
+              href="/Checkout"
               className="bg-grey text-default px-4 py-2 z-50 rounded-lg text-lg font-medium"
             >
               Continue
             </Link>
             <button
-            onClick={handleLogout}
+              onClick={handleLogout}
               className="bg-grey text-default px-4 py-2 z-50 rounded-lg text-lg font-medium"
             >
-             Logout
+              Logout
             </button>
           </div>
         ) : (
@@ -173,13 +223,9 @@ export function NavBar() {
           </div>
         )}
 
-        {/* Desktop Buttons */}
-
         {/* Hamburger Icon for Mobile */}
         <div className="flex md:hidden">
-          {isDrawerOpen ? (
-            ""
-          ) : (
+          {!isDrawerOpen && (
             <Menu
               className="w-8 h-8 text-gray-700 cursor-pointer"
               onClick={() => setIsDrawerOpen(true)}
@@ -190,7 +236,7 @@ export function NavBar() {
 
       {/* Drawer for Mobile */}
       <div
-        className={`fixed top-0 left-0 h-full w-full bg-white shadow-lg transform transition-transform duration-300 z-[100]  ${
+        className={`fixed top-0 left-0 h-full w-full bg-white shadow-lg transform transition-transform duration-300 z-[100] ${
           isDrawerOpen ? "translate-x-0" : "-translate-x-full"
         }`}
       >
@@ -258,16 +304,22 @@ export function NavBar() {
           >
             Contact
           </Link>
-          {token?"":<div className="flex flex-col gap-6">
-            <Link href="/register"className="bg-transparent text-default border border-gray px-4 py-2 rounded-[4px] text-lg font-medium">
-              Sign Up
-            </Link>
-            <Link href="/login" className="bg-grey text-default hover:bg-gray-300 px-4 py-2 rounded-[4px] text-lg font-medium">
-              Sign In
-            </Link>
-          </div>}
-
-          
+          {!token && (
+            <div className="flex flex-col gap-6">
+              <Link
+                href="/register"
+                className="bg-transparent text-default border border-gray px-4 py-2 rounded-[4px] text-lg font-medium"
+              >
+                Sign Up
+              </Link>
+              <Link
+                href="/login"
+                className="bg-grey text-default hover:bg-gray-300 px-4 py-2 rounded-[4px] text-lg font-medium"
+              >
+                Sign In
+              </Link>
+            </div>
+          )}
         </div>
       </div>
 
