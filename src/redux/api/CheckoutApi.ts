@@ -47,6 +47,23 @@ const CheckoutApi = baseApi.injectEndpoints({
       },
       invalidatesTags: ["Checkout"],
     }),
+
+    updateSubsCard: builder.mutation({
+      query: (id) => {
+        return {
+          url: `subscription/update-checkout`,
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Accept: "application/json",
+          },
+          body: {
+            id: id, 
+          },
+        };
+      },
+      invalidatesTags: ["Checkout"],
+    }),
   }),
 });
 
@@ -54,4 +71,5 @@ export const {
   useStripeCheckOutMutation,
   useCancelSubscriptionMutation,
   useResumeSubscriptionMutation,
+  useUpdateSubsCardMutation,
 } = CheckoutApi;

@@ -6,6 +6,7 @@ import Banner from "@/components/Home/Banner/Banner";
 import {
   useCancelSubscriptionMutation,
   useResumeSubscriptionMutation,
+  useUpdateSubsCardMutation,
 } from "@/redux/api/CheckoutApi";
 import { useGetUserQuery } from "@/redux/api/registerApi";
 import Cookies from "js-cookie"; // Import js-cookie
@@ -25,6 +26,8 @@ export function NavBar() {
   const userData = data?.data?.user;
   const token = Cookies.get("token");
   const router = useRouter();
+
+  console.log("userdata me", userData);
 
   // Check localStorage on mount to set cancellation state
   useEffect(() => {
@@ -76,6 +79,30 @@ export function NavBar() {
         typeof error === "string"
           ? error
           : "An error occurred while resuming the subscription."
+      );
+    }
+  };
+
+  const subscriptionId = userData?.payments[0]?.items[0]?.stripe_id;
+  console.log("subscriptionId", subscriptionId);
+
+  const [updateCardSubscriptionFn] = useUpdateSubsCardMutation();
+
+  // handle update card subscription
+  const handleUpdateCard = async () => {
+    try {
+      const response = await updateCardSubscriptionFn({
+        id: subscriptionId,
+      }).unwrap();
+      console.log("update card response", response);
+      if (response?.url) {
+        window.location.href = response.url;
+      }
+    } catch (error) {
+      toast.error(
+        typeof error === "string"
+          ? error
+          : "An error occurred while updating the subscription card."
       );
     }
   };
@@ -180,6 +207,12 @@ export function NavBar() {
                   </button>
                 )}
 
+                <button
+                  className="block text-gray-700 py-2 px-4 w-full text-left hover:bg-gray-200 rounded-lg z-50"
+                  onClick={handleUpdateCard}
+                >
+                  Update Card
+                </button>
                 <button
                   className="block text-gray-700 py-2 px-4 w-full text-left hover:bg-gray-200 rounded-lg z-50"
                   onClick={handleLogout}
