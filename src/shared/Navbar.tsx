@@ -328,15 +328,7 @@ export function NavBar() {
           >
             FAQ
           </Link>
-          <Link
-            href="/contact"
-            className={`text-lg ${
-              isActive("/contact") ? "text-blue-500 font-bold" : "text-gray-700"
-            }`}
-            onClick={() => setIsDrawerOpen(false)}
-          >
-            Contact
-          </Link>
+          
           {!token && (
             <div className="flex flex-col gap-6">
               <Link
