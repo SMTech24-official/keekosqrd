@@ -38,7 +38,9 @@ export function NavBar() {
   }, []);
 
   const isActive = (path: string) => pathname === path;
-  const hasSubscription = userData?.payments[0]?.stripe_status && token;
+  const hasSubscription = userData?.payments[0]?.stripe_status;
+  console.log("userdata hasSubscription", userData?.payments[0].stripe_status)
+  console.log("hasSubscription idfdfsadf", hasSubscription);
 
   const handleLogout = () => {
     Cookies.remove("token");
@@ -157,7 +159,7 @@ export function NavBar() {
           </Link>
         </div>
 
-        {hasSubscription ? (
+        {hasSubscription && token ? (
           // Profile dropdown when both subscription and token exist
           <div className="relative">
             <div
