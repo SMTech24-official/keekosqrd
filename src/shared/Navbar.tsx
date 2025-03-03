@@ -38,9 +38,11 @@ export function NavBar() {
   }, []);
 
   const isActive = (path: string) => pathname === path;
-  const hasSubscription = userData?.payments[0]?.stripe_status;
-  console.log("userdata hasSubscription", userData?.payments[0].stripe_status)
-  console.log("hasSubscription idfdfsadf", hasSubscription);
+  console.log("userdata", userData)
+  const hasSubscription = userData?.payments?.length > 0 && userData?.payments[0]?.stripe_status === "active";
+
+  // console.log("userdata hasSubscription", userData?.payments[0].stripe_status)
+  // console.log("hasSubscription idfdfsadf", hasSubscription);
 
   const handleLogout = () => {
     Cookies.remove("token");
